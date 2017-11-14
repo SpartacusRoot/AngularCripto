@@ -1,0 +1,56 @@
+
+<!--
+<button type="button" (click)="getDb()">Make Request</button>
+<div *ngIf="loading">loading...</div>
+<pre>{{ results | json}}</pre>
+-->
+<div id="body-wrapper">
+<button mat-mini-fab  class="callback-button" routerLink='/home'>
+  <mat-icon  class="callback-icon" aria-label="Callback icon-button with a arrow icon">navigate_before</mat-icon>
+</button>
+<router-outlet name="criptogramma"></router-outlet>
+<mat-card class="main-form">
+    <div class="example-container">
+      <!--
+    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="example-container"> -->
+    <form #f="ngForm"  class="example-container">
+      <mat-form-field>
+
+        <input matInput placeholder="Nome cliente"id="fieldName" [(ngModel)]="name" name="name" ngModel required #searchTerm >
+        <mat-icon matSuffix>face</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+      <input matInput placeholder="Username" required [(ngModel)]="username" name="username" ngModel>
+      <mat-icon matSuffix>account_circle</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Tipo d'accesso" [(ngModel)]="access" name="access" ngModel required>
+        <mat-icon matSuffix>business</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field>
+          <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" required id="fieldName" [(ngModel)]="password" name="password" ngModel>
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field>
+            <textarea matInput placeholder="Note" name="note" [(ngModel)]="note" ngModel></textarea>
+            <mat-icon matSuffix>note_add</mat-icon>
+
+          </mat-form-field>
+    <button mat-raised-button class="submit-button" type="submit" [disabled]="f.invalid" (click)="openDialog(f.value, searchTerm)"  >Inserisci</button>
+    </form>
+    </div>
+
+
+    </mat-card>
+</div>
+
+<ul *ngFor="let res of this.results" >
+    <li> {{res.password}}</li>
+   </ul>
+
+
+

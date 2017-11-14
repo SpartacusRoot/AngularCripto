@@ -1,4 +1,11 @@
+import { Router } from '@angular/router';
 import { Component } from '@angular/core';
+
+// angular Material
+import {MatToolbarModule} from '@angular/material';
+import {MatSidenavModule} from '@angular/material';
+import {MatIconModule} from '@angular/material';
+import {MatListModule} from '@angular/material';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +14,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+constructor(public router: Router) {
+
+}
+  goTo() {
+    this.router.navigate(['/criptogramma']);
+  }
 }

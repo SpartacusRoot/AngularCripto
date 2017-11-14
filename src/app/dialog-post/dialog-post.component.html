@@ -1,0 +1,47 @@
+ <h1 matDialogTitle>Salve {{name}}</h1>
+
+<mat-dialog-content>
+  <mat-list>
+    <h2 mat-subheader>I dati inseriti sono corretti?</h2>
+    <mat-list-item>
+     <h4 matLine>nome cliente : {{name}}</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+    <h4 matLine>username : {{username}}</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <h4 matLine>tipo accesso : {{access}}</h4>
+       </mat-list-item>
+       <mat-divider></mat-divider>
+       <mat-list-item>
+          <h4 matLine>note : {{note}}</h4>
+         </mat-list-item>
+         <mat-divider></mat-divider>
+         <mat-list-item>
+            <h4 matLine>password : {{password}}</h4>
+           </mat-list-item>
+           <mat-divider></mat-divider>
+           <div *ngIf="passwordCrypted">
+        <mat-list-item>
+          <h4 matLine>il tuo criptgramma è: {{passwordCrypted}} </h4>
+          <mat-divider></mat-divider>
+        </mat-list-item>
+           </div>
+  </mat-list>
+
+
+
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button  class="submit-button" (click)="openSnackBar()" (click)="onClick()" [disabled]="isDisabled" >Salva e Crea Criptogramma</button>
+    <div *ngIf="isDisabled; else annulla">
+    <button mat-raised-button color="warn" (click)="dialogRef.close('annulla')">Chiudi</button>
+    </div>
+    <ng-template #annulla>
+    <button mat-raised-button color="warn" (click)="dialogRef.close('annulla')">Annulla</button>
+    </ng-template>
+</mat-dialog-actions>

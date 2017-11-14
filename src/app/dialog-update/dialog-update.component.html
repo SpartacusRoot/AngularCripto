@@ -1,0 +1,43 @@
+<h1 matDialogTitle>Salve {{nome_cliente}}</h1>
+
+<mat-dialog-content>
+  <mat-list>
+    <mat-list-item>
+      <h4 matLine>ID: {{id}}</h4>
+    </mat-list-item>
+  </mat-list>
+  <mat-list>
+    <h2 mat-subheader>I dati aggiornati sono corretti?</h2>
+    <mat-list-item>
+     <h4 matLine>nome cliente : {{nome_cliente}}</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+    <h4 matLine>username : {{username}}</h4>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <h4 matLine>tipo accesso: {{tipo_accesso}}</h4>
+       </mat-list-item>
+       <mat-divider></mat-divider>
+       <mat-list-item>
+          <h4 matLine>note : {{note}}</h4>
+         </mat-list-item>
+         <mat-divider></mat-divider>
+         <mat-list-item>
+            <h4 matLine>password : {{password}}</h4>
+           </mat-list-item>
+           <mat-divider></mat-divider>
+
+
+  </mat-list>
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-raised-button matDialogClose class="submit-button" (click)="openSnackBar()" (click)="onUpdate()">Conferma</button>
+    <button mat-raised-button color="warn" (click)="dialogRef.close('annulla')">Annulla</button>
+
+</mat-dialog-actions>
+
+
