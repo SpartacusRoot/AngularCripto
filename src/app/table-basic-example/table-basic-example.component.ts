@@ -15,7 +15,7 @@ import 'rxjs/add/operator/mergeMap';
 
 import {MatTableModule} from '@angular/material';
 import { ItemsResponse } from './../home/itemResponse';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {MatIconModule} from '@angular/material';
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -91,8 +91,13 @@ password: resPassword, note: resNote, tipo_accesso: resAccesso} }   );
   }
 */
 
-getName = (searchTerm: HTMLInputElement) => {
-  this.http.get<ItemsResponse>('api/search/' + searchTerm.value).subscribe(data1 => {
+getName = (searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement) => {
+let params = new HttpParams();
+ // params.set('nome', searchTerm.value);
+ // params.set('tipo_accesso', searchTerm2.value);
+  params = params.append('nome_cliente', searchTerm.value);
+  params = params.append('tipo_accesso', searchTerm2.value);
+  this.http.get<ItemsResponse>('api/search', {params: params}).subscribe(data1 => {
     this.results = data1;
     console.log(this.results);
       });
@@ -100,7 +105,7 @@ getName = (searchTerm: HTMLInputElement) => {
   return IntervalObservable
   .create(5000)
   .flatMap((i)  =>
-  this.http.get<ItemsResponse>('api/search/' + searchTerm.value)).subscribe(data1 => {
+  this.http.get<ItemsResponse>('api/search/' + searchTerm.value + '/' + searchTerm2.value )).subscribe(data1 => {
 this.results = data1;
 console.log(this.results);
   });

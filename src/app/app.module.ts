@@ -17,7 +17,7 @@ import {
   ReactiveFormsModule
 } from '@angular/forms';
 
-import {HttpClientModule} from '@angular/common/http';
+import {HttpClientModule,HttpParams} from '@angular/common/http';
 
 // angular Material
 import {MatTooltipModule} from '@angular/material/tooltip';
@@ -35,7 +35,6 @@ import {MatTableModule} from '@angular/material';
 import {MatListModule} from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
 // component
-import { Search2Component } from './search2/search2.component';
 import { TableBasicExampleComponent } from './table-basic-example/table-basic-example.component';
 import { DecryptComponent } from './decrypt/decrypt.component';
 
@@ -68,7 +67,6 @@ const routes: Routes = [
   declarations: [
     AppComponent,
     HomeComponent,
-    Search2Component,
     TableBasicExampleComponent,
     DecryptComponent,
     CriptogrammaComponent,

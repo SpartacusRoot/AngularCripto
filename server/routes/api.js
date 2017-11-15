@@ -183,15 +183,42 @@ json = result;
 
 
 
-  router.get('/search/:name',  (req, res, next) => {
+  router.get('/search/',  (req, res, next) => {
     var searchRes = {};
+    let searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users where TRUE=TRUE';
+    let queryParams = [];
 
-const searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users  where nome_cliente=$1';
+    if(req.query.nome_cliente && req.query.nome_cliente != ''){
+      searchResult += " AND nome_cliente = $1"
+      queryParams.push(req.query.nome_cliente);
+    }
+
+    if (req.query.tipo_accesso && req.query.tipo_accesso != '') {
+      searchResult += " AND tipo_accesso = $" + (queryParams.length + 1);
+      queryParams.push(req.query.tipo_accesso);
+    }
+    console.log(searchResult);
+    var client = new pg.Client(connectionString);
+    client.connect(function(err){
+    client.query(searchResult, queryParams, function(req, result){
+
+    // console.log(result);
+      searchRes = result;
+      client.end();
+    // console.log('search result :', searchRes.rows[1].id);
+      res.send(searchRes.rows);
+    });
+  });
+});
+/*
+
+
+const searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users  where nome_cliente= $1 ';
 
 
 var client = new pg.Client(connectionString);
 client.connect(function(err){
-client.query(searchResult, [req.params.name], function(req, result){
+client.query(searchResult, [req.query.name], function(req, result){
 
 //  console.log(result.rows[0]);
   searchRes = result;
@@ -200,9 +227,8 @@ client.query(searchResult, [req.params.name], function(req, result){
   res.send(searchRes.rows);
 });
 });
+*/
 
-
-  });
 
 
 // sotto parametri ricerca dati
