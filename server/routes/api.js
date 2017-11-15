@@ -187,7 +187,7 @@ json = result;
     var searchRes = {};
     let searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users where TRUE=TRUE';
     let queryParams = [];
-
+    /*
     if(req.query.nome_cliente && req.query.nome_cliente != ''){
       searchResult += " AND nome_cliente = $1"
       queryParams.push(req.query.nome_cliente);
@@ -197,6 +197,12 @@ json = result;
       searchResult += " AND tipo_accesso = $" + (queryParams.length + 1);
       queryParams.push(req.query.tipo_accesso);
     }
+*/
+    req.query.nome_cliente && req.query.nome_cliente   != ''  ? (searchResult += " AND nome_cliente = $1" , queryParams.push(req.query.nome_cliente)) : null;
+    req.query.tipo_accesso && req.query.tipo_accesso   != '' ? (searchResult += " AND tipo_accesso = $" + (queryParams.length + 1) , queryParams.push(req.query.tipo_accesso)) : null;
+    req.query.password && req.query.password != '' ? (searchResult += " AND password = $" + (queryParams.length + 1) , queryParams.push(req.query.password)) : null;
+
+
     console.log(searchResult);
     var client = new pg.Client(connectionString);
     client.connect(function(err){

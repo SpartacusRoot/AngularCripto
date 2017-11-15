@@ -91,12 +91,13 @@ password: resPassword, note: resNote, tipo_accesso: resAccesso} }   );
   }
 */
 
-getName = (searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement) => {
+getName = (searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTerm3: HTMLInputElement) => {
 let params = new HttpParams();
  // params.set('nome', searchTerm.value);
  // params.set('tipo_accesso', searchTerm2.value);
   params = params.append('nome_cliente', searchTerm.value);
   params = params.append('tipo_accesso', searchTerm2.value);
+  params = params.append('password', searchTerm3.value);
   this.http.get<ItemsResponse>('api/search', {params: params}).subscribe(data1 => {
     this.results = data1;
     console.log(this.results);
@@ -105,7 +106,7 @@ let params = new HttpParams();
   return IntervalObservable
   .create(5000)
   .flatMap((i)  =>
-  this.http.get<ItemsResponse>('api/search/' + searchTerm.value + '/' + searchTerm2.value )).subscribe(data1 => {
+  this.http.get<ItemsResponse>('api/search', {params: params} )).subscribe(data1 => {
 this.results = data1;
 console.log(this.results);
   });
