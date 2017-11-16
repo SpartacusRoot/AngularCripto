@@ -38,11 +38,12 @@ export class CustomReuseStrategy implements RouteReuseStrategy {
   // Helper method to return a path,
   // since javascript map object returns an object or undefined.
   private getPath(route: ActivatedRouteSnapshot): string {
-    let path = "";
-    if (route.routeConfig != null && route.routeConfig.path != null)
+    let path = ' ';
+    if (route.routeConfig != null && route.routeConfig.path != null) {
         path = route.routeConfig.path;
     return path;
 }
+  }
 
 
   }

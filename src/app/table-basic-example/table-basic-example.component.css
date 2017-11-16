@@ -1,5 +1,4 @@
 
-
 #body-wrapper {
   background-image: url('../assets/screensaver.png');
   background-repeat: no-repeat;
@@ -13,6 +12,7 @@
   flex-direction: column;
   max-height: 500px;
   min-width: 300px;
+  margin: 2%;
 }
 
 .mat-table {
@@ -21,28 +21,32 @@
 }
 
 
-
-
-
+/*
 .main-form {
   margin: 2%;
 }
+*/
 
-
-.example-container {
+form {
+  margin: 0 !important;
+  padding: 0 !important;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-around;
+  flex-direction:row;
+
 }
 
+.example-container {
+margin: 2%;
+}
+
+/*
 .example-container > * {
   width: 100%;
 }
+*/
 
-.submit-button {
-  width: 20%;
-  background-color: #FFFF00;
-}
+
 
 .callback-button {
   margin-top: 2%;

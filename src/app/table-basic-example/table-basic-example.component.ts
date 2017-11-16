@@ -103,7 +103,7 @@ let params = new HttpParams();
     console.log(this.results);
       });
 
-  return IntervalObservable
+  /* return IntervalObservable
   .create(5000)
   .flatMap((i)  =>
   this.http.get<ItemsResponse>('api/search', {params: params} )).subscribe(data1 => {
@@ -111,7 +111,7 @@ this.results = data1;
 console.log(this.results);
   });
 
-
+*/
 }
 
 

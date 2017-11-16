@@ -1,22 +1,14 @@
-
-<!--
-<button type="button" (click)="getDb()">Make Request</button>
-<div *ngIf="loading">loading...</div>
-<pre>{{ results | json}}</pre>
--->
 <div id="body-wrapper">
-<button mat-mini-fab  class="callback-button" routerLink='/home'>
+<button mat-mini-fab  class="callback-button" color="accent" routerLink='/home'>
   <mat-icon  class="callback-icon" aria-label="Callback icon-button with a arrow icon">navigate_before</mat-icon>
 </button>
 <router-outlet name="criptogramma"></router-outlet>
 <mat-card class="main-form">
     <div class="example-container">
-      <!--
-    <form #f="ngForm" (ngSubmit)="onSubmit(f.value)" class="example-container"> -->
     <form #f="ngForm"  class="example-container">
       <mat-form-field>
 
-        <input matInput placeholder="Nome cliente"id="fieldName" [(ngModel)]="name" name="name" ngModel required #searchTerm >
+        <input matInput placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel required #searchTerm >
         <mat-icon matSuffix>face</mat-icon>
       </mat-form-field>
 
@@ -40,7 +32,7 @@
             <mat-icon matSuffix>note_add</mat-icon>
 
           </mat-form-field>
-    <button mat-raised-button class="submit-button" type="submit" [disabled]="f.invalid" (click)="openDialog(f.value, searchTerm)"  >Inserisci</button>
+    <button mat-raised-button class="submit-button" color="accent" type="submit" [disabled]="f.invalid" (click)="openDialog(f.value, searchTerm)"  >Inserisci</button>
     </form>
     </div>
 

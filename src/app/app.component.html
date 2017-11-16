@@ -1,69 +1,21 @@
+<mat-toolbar color="primary" class="mat-elevation-z8">
+  <button mat-icon-button (click)="sidenav.toggle()" class="menu-icon">
+   <mat-icon class="mat-24" color="accent" >menu</mat-icon>
+  </button>
+  <mat-button-toggle routerLink='/home'><h2>CryptoTemera</h2></mat-button-toggle>
 
-<!--
-
-<mat-sidenav-container>
-    <mat-toolbar class="mat-elevation-z24">
-      <button type="button" mat-button (click)="sidenav.toggle()"><mat-icon class="menu-icon" >menu</mat-icon></button>
-     <mat-button-toggle routerLink='/home'><h2 class="title">CryptoTemera</h2></mat-button-toggle>
-    </mat-toolbar>
-
-    <mat-sidenav #sidenav mode="side" class="sidenav-container">
-
-
-    -->
-      <!-- sidenav content
-
-        <mat-card  id="body-menu">
-          <p class="menu-title">Operations</p>
-          <br/>
-                    <div class="example-container">
-                  <a id="menu-button"  color="primary" mat-button routerLink='/criptogramma'><mat-icon>fingerprint</mat-icon>crea criptgramma</a>
-                    <br/>
-                  <a id="menu-button" color="primary" mat-button  routerLink='/ricerca'><mat-icon>account_box</mat-icon>Recupero dati </a>
-                  <br/>
-                  <a id="menu-button" color="primary" mat-button routerLink='/decrypt'><mat-icon>vpn_key</mat-icon>Recupero dati </a>
-                     </div>
-                </mat-card>
-
-      </mat-sidenav>
-
-
-
-
-      <div>
-      <router-outlet></router-outlet>
-    </div>
-
-
-
-
-
-    </mat-sidenav-container>
-
-
-  -->
-<mat-toolbar class="mat-elevation-z24" >
-              <button mat-icon-button (click)="sidenav.toggle()" class="menu-icon">
-                  <mat-icon class="mat-24" >menu</mat-icon>
-              </button>
-              <mat-button-toggle routerLink='/home'><h2 class="title">CryptoTemera</h2></mat-button-toggle>
-          </mat-toolbar>
-  <mat-sidenav-container >
-      <mat-sidenav #sidenav mode="side" class="sidenav-open">
-          <mat-list>
-              <mat-list-item><a id="menu-button"  color="primary" mat-button routerLink='/criptogramma'><mat-icon>fingerprint</mat-icon>crea criptgramma</a></mat-list-item>
-              <mat-divider></mat-divider>
-              <mat-list-item><a id="menu-button" color="primary" mat-button  routerLink='/ricerca'><mat-icon>account_box</mat-icon>Recupero dati </a></mat-list-item>
-              <mat-divider></mat-divider>
-            </mat-list>
-          </mat-sidenav>
-
-
-      <div class="app-content">
-
-
-              <router-outlet></router-outlet>
-
-      </div>
-  </mat-sidenav-container>
+</mat-toolbar>
+<mat-sidenav-container >
+  <mat-sidenav #sidenav mode="side" class="sidenav-open">
+    <mat-list>
+      <mat-list-item><a id="menu-button"  color="primary" mat-button routerLink='/criptogramma'><mat-icon>fingerprint</mat-icon>crea criptgramma</a></mat-list-item>
+        <mat-divider></mat-divider>
+      <mat-list-item><a id="menu-button" color="primary" mat-button  routerLink='/ricerca'><mat-icon>account_box</mat-icon>Recupero dati </a></mat-list-item>
+        <mat-divider></mat-divider>
+    </mat-list>
+  </mat-sidenav>
+ <div class="app-content">
+  <router-outlet></router-outlet>
+ </div>
+</mat-sidenav-container>
 

@@ -59,6 +59,10 @@ export class SearchDetailsComponent implements OnInit {
           note: this.note
         }
       });
+
+      dialog.afterClosed().subscribe(result => {
+
+      });
     }
 
 

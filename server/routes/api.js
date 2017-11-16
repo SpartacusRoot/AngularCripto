@@ -203,7 +203,7 @@ json = result;
     req.query.password && req.query.password != '' ? (searchResult += " AND password = $" + (queryParams.length + 1) , queryParams.push(req.query.password)) : null;
 
 
-    console.log(searchResult);
+    // console.log(searchResult);
     var client = new pg.Client(connectionString);
     client.connect(function(err){
     client.query(searchResult, queryParams, function(req, result){

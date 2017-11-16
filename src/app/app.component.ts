@@ -13,10 +13,8 @@ import {MatListModule} from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-constructor(public router: Router) {
 
-}
+constructor(public router: Router) {}
   goTo() {
     this.router.navigate(['/criptogramma']);
   }
