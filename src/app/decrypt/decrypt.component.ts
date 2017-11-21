@@ -29,13 +29,7 @@ export class DecryptComponent implements OnInit {
 
 
 
-  getName(searchTerm: HTMLInputElement) {
-    this.http.get<ItemsResponse>('api/decripta/c3233703c064062ae2302efa86').subscribe(data2 => {
-  this.results1 = data2;
-      console.log(data2);
 
-    });
-  }
   ngOnInit() {
 
 

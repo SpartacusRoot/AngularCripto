@@ -16,9 +16,7 @@ import {
   FormsModule,
   ReactiveFormsModule
 } from '@angular/forms';
-
-import {HttpClientModule,HttpParams} from '@angular/common/http';
-
+import {HttpClientModule, HttpParams} from '@angular/common/http';
 // angular Material
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSidenavModule} from '@angular/material';
@@ -46,13 +44,14 @@ import { SearchDetailsComponent } from './search-details/search-details.componen
 import { DialogPostComponent } from './dialog-post/dialog-post.component';
 import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
 
-
+// ngx-datatable
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  {path: 'ricerca/:id/:name/:username/:password/:note/:tipo_accesso', component: SearchDetailsComponent},
+  {path: 'edit', component: SearchDetailsComponent, pathMatch: 'prefix'},
   {path: 'ricerca', component: TableBasicExampleComponent},
   {path: 'api/decrypt', component:  DecryptComponent, pathMatch: 'prefix'},
   {path: 'criptogramma', component: CriptogrammaComponent}
@@ -97,7 +96,9 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    // ngx datatable
+    NgxDatatableModule
 
 
   ],

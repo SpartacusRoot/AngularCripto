@@ -1,5 +1,5 @@
 <div id="body-wrapper">
- <button mat-mini-fab  class="callback-button" routerLink='/home'>
+ <button mat-mini-fab  class="callback-button mat-elevation-z8" routerLink='/home'>
   <mat-icon  class="callback-icon" aria-label="Callback icon-button with a arrow icon">navigate_before</mat-icon>
  </button>
 
@@ -11,7 +11,7 @@
         <mat-icon matSuffix>face</mat-icon>
     </mat-form-field>
     <mat-form-field>
-      <input matInput placeholder="Tipo d'accesso" name="tipo_accesso" #searchTerm2  ngModel required>
+      <input matInput placeholder="Tipo d'accesso" name="tipo_accesso" #searchTerm2  ngModel >
         <mat-icon matSuffix>business</mat-icon>
       </mat-form-field>
     <mat-form-field>
@@ -26,37 +26,83 @@
 
 
 
+  <div id="body-wrapper2">
+        <table cellspacing="0">
+          <thead>
+            <tr>
+              <th class="mdl-data-table__cell--non-numeric">
+                <div>nome cliente</div>
+              </th>
+              <th>
+                <div>username</div>
+              </th>
+              <th>
+                <div>tipo accesso</div>
+              </th>
+              <th>
+                  <div>criptogramma</div>
+              </th>
+              <th>
+                  <div>note</div>
+              </th>
+              <th>
+                  <div>operations</div>
+                </th>
+            </tr>
 
+          </thead>
+          <tbody>
+              <tr *ngFor="let res of this.rows">
+                  <td>{{ res.nome_cliente }}</td>
+                  <td>{{ res.username }}</td>
+                  <td>{{res.tipo_accesso}}</td>
+                  <td><span>{{res.password}}</span></td>
+                  <td>{{res.note}}</td>
+                  <td>
+                    <a mat-icon-button (click)="showDetails(res)" >
+                    <mat-icon matTooltip="Modifica i tuoi dati">mode_edit</mat-icon>
+                    </a>
+                    <a mat-icon-button (click)="showDetails2(res)" >
+                      <mat-icon matTooltip="visualizza i tuoi dati">face</mat-icon>
+                      </a>
+                    </td>
+                </tr>
 
-<table>
-    <thead>
-      <tr>
-        <th scope="col">nome cliente</th>
-        <th scope="col">username</th>
-        <th scope="col">tipo accesso</th>
-        <th scope="col">criptogramma</th>
-        <th scope="col">note</th>
-        <th scope="clo">operations</th>
+          </tbody>
+          </table>
+</div>
 
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let res of this.results">
-        <td>{{ res.nome_cliente }}</td>
-        <td>{{ res.username }}</td>
-        <td>{{res.tipo_accesso}}</td>
-        <td>{{ res.password }}</td>
-        <td>{{res.note}}</td>
-        <td>
-          <a mat-icon-button (click)="showDetails(res)" >
-          <mat-icon matTooltip="Modifica i tuoi dati">mode_edit</mat-icon>  <!--{{selectedRes}} -->
-          </a>
-          <a mat-icon-button (click)="showDetails2(res)" >
-            <mat-icon matTooltip="visualizza i tuoi dati">face</mat-icon>  <!-- {{selectedRes}} -->
+ <!--
+<div>
+  <ngx-datatable
+  class="material"
+  [rows]="rows"
+  [loadingIndicator]="loadingIndicator"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [selected]="selected"
+  (activate)="onActivate($event)"
+  [selectionType]="'multi'"
+  [selectionType]="'cell'"
+  [reorderable]="reorderable">
+  <ngx-datatable-column name="Nome cliente"  prop="nome_cliente" [width]="100"></ngx-datatable-column>
+  <ngx-datatable-column name="username" prop="username"></ngx-datatable-column>
+  <ngx-datatable-column name="password" propr="password" [width]="500"></ngx-datatable-column>
+  <ngx-datatable-column name="tipo accesso" prop="tipo_accesso" [width]="100" ></ngx-datatable-column>
+  <ngx-datatable-column name="note" prop="note" [width]="300"></ngx-datatable-column>
+  <ngx-datatable-column name="details" value="Edit" [width]="10">
+     <ng-template let-row="row" let-value="value" let-i="index" ngx-datatable-cell-template>
+        <a mat-icon-button  (click)="onSelect($event)">
+            <mat-icon matTooltip="Modifica i tuoi dati">mode_edit</mat-icon>
             </a>
-          </td>
-      </tr>
-    </tbody>
-    </table>
+            <a mat-icon-button (click)="onSelect2($event)">
+                <mat-icon matTooltip="visualizza i tuoi dati">face</mat-icon>
+                </a>
+     </ng-template></ngx-datatable-column>
 
 
+</ngx-datatable>
+
+-->

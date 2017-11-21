@@ -23,7 +23,7 @@
     "@angular/platform-browser": "^4.2.4",
     "@angular/platform-browser-dynamic": "^4.2.4",
     "@angular/router": "^4.2.4",
-    "@swimlane/ngx-datatable": "^10.3.0",
+    "@swimlane/ngx-datatable": "^10.4.0",
     "angular-datatables": "^4.4.0",
     "body-parser": "^1.18.2",
     "core-js": "^2.4.1",
@@ -35,7 +35,7 @@
     "pg": "^7.3.0",
     "pg-promise": "^6.10.1",
     "rxjs": "^5.4.2",
-    "typescript": "^2.4.0",
+    "typescript": "^2.6.1",
     "zone.js": "^0.8.14"
   },
   "devDependencies": {

@@ -132,8 +132,8 @@ router.put('/update',   (req, res) => {
       userModel.password = encryptedString;
 
 
-     const text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3), password=($4), note=($5)   WHERE id=($6) '
-    const values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso,  userModel.password,  userModel.note, userModel.id ];
+      const text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3), password=($4), note=($5)   WHERE id=($6) '
+     const values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso,  userModel.password,  userModel.note, userModel.id ];
 
     var client = new pg.Client(connectionString);
     client.connect(function(err) {
@@ -148,6 +148,23 @@ router.put('/update',   (req, res) => {
         client.end();
       });
     });
+
+    const text1 = 'UPDATE users SET password=($1) WHERE id=($2)'
+    var client = new pg.Client(connectionString);
+    client.connect(function(err) {
+      if(err) {
+        return console.error('could not connect to postgres', err);
+      }
+      client.query(text1, [ userModel.password,userModel.id ], function(err, res) {
+        if(err) {
+          return console.error('error running query', err);
+        }
+        //console.log(res.rows[0]);
+        client.end();
+      });
+    });
+
+
 res.send({tipo_accesso:req.body.access});
 
   });

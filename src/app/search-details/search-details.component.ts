@@ -76,6 +76,7 @@ export class SearchDetailsComponent implements OnInit {
     }
 
   ngOnInit() {
+/*
     this.sub = this.route.params.subscribe(params => {
       this.id = +params['id']; // (+) converts string 'id' to a number
       this.nome_cliente = params['name'];
@@ -87,5 +88,14 @@ export class SearchDetailsComponent implements OnInit {
 
    });
   }
-
+*/
+this.sub = this.route.queryParams.subscribe(params => {
+  this.id = +params['id']; // (+) converts string 'id' to a number
+  this.nome_cliente = params['name'];
+  this.username = params['username'];
+  this.password = params['password'];
+  this.tipo_accesso = params['tipo_accesso'];
+  this.note = params['note'];
+});
+  }
 }

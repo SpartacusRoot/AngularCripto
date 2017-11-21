@@ -1,19 +1,24 @@
 
+
 #body-wrapper {
   background-image: url('../assets/screensaver.png');
   background-repeat: no-repeat;
-  height: 350px;
+  height: 205px;
+  opacity: 0.9;
+}
+#body-wrapper2 {
+  background-image: url('../assets/screensaver.png');
+  background-repeat: repeat;
+  height: 530px;
+  opacity: 0.9;
 }
 
 
-
-.table-container {
-  display: flex;
-  flex-direction: column;
-  max-height: 500px;
-  min-width: 300px;
-  margin: 2%;
+.submit-button {
+  height: 10%;
+  margin-top: 1%;
 }
+
 
 .mat-table {
   overflow: auto;
@@ -62,13 +67,15 @@ margin: 2%;
 body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.25;
+  background-color: #e0e0e0;
 }
 table {
   border: 1px solid #ccc;
   border-collapse: collapse;
   margin: 0;
+  margin-left: 2%;
   padding: 0;
-  width: 100%;
+  width: 96%;
   table-layout: fixed;
 }
 table caption {
@@ -84,6 +91,7 @@ table th,
 table td {
   padding: .625em;
   text-align: center;
+  word-break: break-all;
 }
 table th {
   font-size: .85em;

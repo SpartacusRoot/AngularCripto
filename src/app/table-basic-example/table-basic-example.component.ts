@@ -16,9 +16,12 @@ import 'rxjs/add/operator/mergeMap';
 import {MatTableModule} from '@angular/material';
 import { ItemsResponse } from './../home/itemResponse';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import {MatIconModule} from '@angular/material';
 import {MatTooltipModule} from '@angular/material/tooltip';
+
+
+// ngx-NgxDatatableModule
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @Component({
   selector: 'app-table-basic-example',
@@ -27,26 +30,70 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 
 })
 export class TableBasicExampleComponent {
+ rows: any;
+  loadingIndicator = true;
+  reorderable  = true;
+
+  columns = [
+    { prop: 'nome_cliente', name: 'nome cliente' },
+    { prop: 'username' },
+    { prop: 'password' },
+    { prop: 'tipo_accesso' },
+    { name: 'edit'}
+];
 
 
-  displayedColumns = ['position', 'name', 'weight', 'symbol', 'tipo accesso', 'operations'];
-  dataSource = new ExampleDataSource();
 
-
+selected = [];
  res: ItemsResponse[] = [];
  selectedRes: ItemsResponse;
 data1$:  BehaviorSubject<any> = new BehaviorSubject({});
-
+row: any;
 results: any;
 
 
 
  constructor(private http: HttpClient, private router: Router, private _Activatedroute: ActivatedRoute) {
+}
 
+onSelect({selected, rowIndexes: number, row }) {
+  console.log('Select Event', selected, this.selected);
+     this.router.navigate(['edit/'], { queryParams: { id: this.selected[0].id, name: this.selected[0].nome_cliente,
+       username: this.selected[0].username, password: this.selected[0].password, note: this.selected[0].note,
+       tipo_accesso: this.selected[0].tipo_accesso} }   );
+       this.rows = [...this.rows];
+
+     // this.selected.splice(0, this.selected.length);
+     // this.selected.push(...selected);
+}
+
+onActivate(event ) {
+  console.log( event);
+
+  }
+
+  onSel({selected}) {
+console.log('se', this.selected);
+  }
+
+onSelect2({selected, rowIndexes: number, row }) {
+     this.router.navigate(['api/decrypt/'], { queryParams: { id: this.selected[0].id, name: this.selected[0].nome_cliente,
+       username: this.selected[0].username, password: this.selected[0].password, note: this.selected[0].note,
+       tipo_accesso: this.selected[0].tipo_accesso} }   );
+       this.rows = [...this.rows];
+
+     // this.selected.splice(0, this.selected.length);
+     // this.selected.push(...selected);
 }
 
 
-
+/*
+go({selected}) {
+  this.router.navigate(['/ricerca/:id/:name/:username/:password/:note/:tipo_accesso',
+  { id: this.selected, name: value.nome_cliente, username: value.username, password: value.password, note: value.note ,
+     tipo_accesso: value.tipo_accesso}]);
+}
+*/
 
 showDetails(res: ItemsResponse) {
   this.selectedRes = res;
@@ -56,9 +103,9 @@ showDetails(res: ItemsResponse) {
   const resPassword = res ? res.password : null;
   const resNote = res ? res.note : null;
   const resAccesso = res ? res.tipo_accesso : null;
-  this.router.navigate(['/ricerca/:id/:name/:username/:password/:note/:tipo_accesso',
-  { id: resId, name: resName, username: resUsername, password: resPassword, note: resNote, tipo_accesso: resAccesso}]);
-}
+  this.router.navigate(['edit'], { queryParams: { id: resId, name: resName, username: resUsername,
+    password: resPassword, note: resNote, tipo_accesso: resAccesso} }   );
+    }
 
 showDetails2(res: ItemsResponse) {
   this.selectedRes = res;
@@ -91,6 +138,9 @@ password: resPassword, note: resNote, tipo_accesso: resAccesso} }   );
   }
 */
 
+
+/* for custom table
+
 getName = (searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTerm3: HTMLInputElement) => {
 let params = new HttpParams();
  // params.set('nome', searchTerm.value);
@@ -103,6 +153,24 @@ let params = new HttpParams();
     console.log(this.results);
       });
 
+*/
+
+// test ngx-datatable
+
+getName = (searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTerm3: HTMLInputElement) => {
+  let params = new HttpParams();
+   // params.set('nome', searchTerm.value);
+   // params.set('tipo_accesso', searchTerm2.value);
+    params = params.append('nome_cliente', searchTerm.value);
+    params = params.append('tipo_accesso', searchTerm2.value);
+    params = params.append('password', searchTerm3.value);
+    this.http.get('api/search', {params: params}).subscribe(data1 => {
+      this.rows = data1;
+      console.log(this.rows);
+
+        });
+
+
   /* return IntervalObservable
   .create(5000)
   .flatMap((i)  =>
@@ -112,47 +180,4 @@ console.log(this.results);
   });
 
 */
-}
-
-
-
-}
-
-export interface Element {
-  data1?: string[];
-  username: string;
-  nome_cliente: string;
-  password: string;
-  note: string;
-  operations: any;
-}
-
-
-const data: Element[] = [
-  {nome_cliente: 'df', username: 'Hydrogen', password: '1.0079', note: 'H', operations: ' '}
-
-];
-
-
-
-/**
- * Data source to provide what data should be rendered in the table. The observable provided
- * in connect should emit exactly the data that should be rendered by the table. If the data is
- * altered, the observable should emit that new set of data on the stream. In our case here,
- * we return a stream that contains only one set of data that doesn't change.
- */
-
-
-export class ExampleDataSource extends DataSource<any> {
-  results = data;
-  /** Connect function called by the table to retrieve one stream containing the data to render. */
-
-  connect(): Observable<Element[]> {
-    return Observable.of(data);
-
-  }
-
-  disconnect() {}
-
-
-}
+} }

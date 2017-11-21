@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit,  Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
@@ -20,7 +21,7 @@ export class DialogUpdateComponent implements OnInit {
  access: any;
   constructor(public dialogRef: MatDialogRef<DialogUpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient,
-    private snackBar: MatSnackBar) { }
+    private snackBar: MatSnackBar, private router: Router) { }
 
   ngOnInit() {
   this.id = this.data.id;
@@ -39,6 +40,7 @@ export class DialogUpdateComponent implements OnInit {
     this.result = this.data['results'];
 console.log(this.result);
 this.dialogRef.close();
+this.router.navigate(['ricerca']);
 
     });
   }
@@ -47,7 +49,7 @@ this.dialogRef.close();
 
 openSnackBar() {
   const ref = this.snackBar
-  .open('I tuoi dati sono stati correttamente aggiornati', 'chiudi', { duration: 5000 });
+  .open('I tuoi dati sono stati correttamente aggiornati', 'x', { duration: 5000 });
   console.log('you submitted value:', this.data);
 }
 

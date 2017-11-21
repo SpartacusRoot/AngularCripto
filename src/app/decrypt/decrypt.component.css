@@ -28,3 +28,10 @@
   word-break: keep-all;
   word-wrap: break-word;
 }
+
+#body-wrapper2 {
+  background-image: url('../assets/screensaver.png');
+  background-repeat: repeat;
+  height: 530px;
+  opacity: 0.9;
+}

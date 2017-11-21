@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit,  Inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
@@ -21,7 +22,7 @@ isClickedOnce= false;
 isDisabled: boolean;
 
   constructor(public dialogRef: MatDialogRef<DialogPostComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,
+    @Inject(MAT_DIALOG_DATA) public data: any, private router: Router,
     private http: HttpClient,
     private snackBar: MatSnackBar) { }
 
@@ -47,6 +48,7 @@ isDisabled: boolean;
 */
     // this.dialogRef.close();
     this.isDisabled = true;
+  this.router.navigate(['home']);
   });
 
 
@@ -56,7 +58,7 @@ isDisabled: boolean;
 
 openSnackBar() {
   const ref = this.snackBar
-  .open('I tuoi dati sono stati correttamente salvati', 'chiudi', { duration: 5000 });
+  .open('I tuoi dati sono stati correttamente salvati', 'x', { duration: 1000 });
   console.log('you submitted value:', this.data);
 }
 
