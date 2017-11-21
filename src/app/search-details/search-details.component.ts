@@ -75,6 +75,8 @@ export class SearchDetailsComponent implements OnInit {
       });
     }
 
+
+
   ngOnInit() {
 /*
     this.sub = this.route.params.subscribe(params => {
