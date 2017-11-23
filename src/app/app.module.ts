@@ -43,9 +43,8 @@ import { LocationStrategy } from '@angular/common';
 import { SearchDetailsComponent } from './search-details/search-details.component';
 import { DialogPostComponent } from './dialog-post/dialog-post.component';
 import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
+import { DecriptaUrlComponent } from './decripta-url/decripta-url.component';
 
-// ngx-datatable
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 const routes: Routes = [
@@ -54,7 +53,8 @@ const routes: Routes = [
   {path: 'edit', component: SearchDetailsComponent, pathMatch: 'prefix'},
   {path: 'ricerca', component: TableBasicExampleComponent},
   {path: 'api/decrypt', component:  DecryptComponent, pathMatch: 'prefix'},
-  {path: 'criptogramma', component: CriptogrammaComponent}
+  {path: 'criptogramma', component: CriptogrammaComponent},
+  {path: 'decripta', component: DecriptaUrlComponent, pathMatch: 'prefix'}
 
 
 ];
@@ -71,7 +71,8 @@ const routes: Routes = [
     CriptogrammaComponent,
     SearchDetailsComponent,
     DialogPostComponent,
-    DialogUpdateComponent
+    DialogUpdateComponent,
+    DecriptaUrlComponent
 
 
   ],
@@ -96,9 +97,7 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
-    MatSnackBarModule,
-    // ngx datatable
-    NgxDatatableModule
+    MatSnackBarModule
 
 
   ],

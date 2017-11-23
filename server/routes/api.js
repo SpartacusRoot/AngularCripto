@@ -290,13 +290,6 @@ function decrypt(text) {
   chmac = crypto.createHmac(HMAC_ALGORITHM, HMAC_KEY);
   chmac.update(ct);
   chmac.update(iv.toString('hex'));
-
-  //if (!constant_time_compare(chmac.digest('hex'), hmac)) {
-   // console.log("Encrypted text has been tampered with...");
-    //return null;
-  //}
-
-
   decryptor = crypto.createDecipheriv(algorithm, key, iv);
   var decryptedText = decryptor.update(ct,'hex', 'utf-8');
   return decryptedText += decryptor.final('utf-8');
@@ -346,7 +339,71 @@ function decrypt(text) {
   });
 
 
-  router.get('/decrypt', (req,res,next) => {
+  router.get('/decrypta', (req,res,next) => {
+let password = req.query.password;
+var json = {};
+
+const dbReturn = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users  where password= $1';
+var client = new pg.Client(connectionString);
+client.connect(function(err) {
+client.query(dbReturn,[password], function(req , result) {
+   // console.log(result.rows[0]);
+json = result.rows[0];
+   // json = JSON.stringify(res);
+    client.end();
+ // var json = result.rows;
+ // wrap result-set as json
+   console.log('JSON-result:', json);
+   let decryptedString = decrypt(password);
+   json.decryptedString = decryptedString;
+   console.log('ecco',json.decryptedString)
+
+
+
+
+   res.json(json);
+  });
+
+
+});
+
+function decrypt(text) {
+  let textParts = text.split('$');
+
+  console.log('textparts ' + textParts);
+  var ct = textParts[0];
+
+  console.log('1 ' + ct);
+  let iv = new Buffer(textParts[1], 'hex');
+
+  var hmac =textParts[2];
+  var decryptor;
+  console.log('hmac ' + hmac);
+
+  console.log('iv '+ iv);
+  chmac = crypto.createHmac(HMAC_ALGORITHM, HMAC_KEY);
+  chmac.update(ct);
+  chmac.update(iv.toString('hex'));
+  decryptor = crypto.createDecipheriv(algorithm, key, iv);
+  var decryptedText = decryptor.update(ct,'hex', 'utf-8');
+  return decryptedText += decryptor.final('utf-8');
+
+ };
+
+ var constant_time_compare = function (val1, val2) {
+  var sentinel;
+
+  if (val1.length !== val2.length) {
+      return false;
+  }
+
+
+  for (var i = 0; i <= (val1.length - 1); i++) {
+      sentinel |= val1.charCodeAt(i) ^ val2.charCodeAt(i);
+  }
+
+  return sentinel === 0;
+ };
 
 
   });

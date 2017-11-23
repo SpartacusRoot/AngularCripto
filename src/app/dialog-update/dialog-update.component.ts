@@ -17,8 +17,8 @@ export class DialogUpdateComponent implements OnInit {
   tipo_accesso: string;
   note: string;
   name: string;
- id: string;
- access: any;
+  id: string;
+  access: any;
   constructor(public dialogRef: MatDialogRef<DialogUpdateComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private http: HttpClient,
     private snackBar: MatSnackBar, private router: Router) { }
@@ -49,7 +49,7 @@ this.router.navigate(['ricerca']);
 
 openSnackBar() {
   const ref = this.snackBar
-  .open('I tuoi dati sono stati correttamente aggiornati', 'x', { duration: 5000 });
+  .open('I tuoi dati sono stati correttamente aggiornati', 'x', { duration: 2000 });
   console.log('you submitted value:', this.data);
 }
 

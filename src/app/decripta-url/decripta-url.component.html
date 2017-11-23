@@ -1,0 +1,39 @@
+
+  <button mat-mini-fab  class="callback-button" routerLink='/home'>
+  <mat-icon  class="callback-icon" aria-label="Callback icon-button with a arrow icon">navigate_before</mat-icon>
+  </button>
+  <mat-card class="main">
+  <mat-list>
+    <mat-list-item>
+      <mat-icon mat-list-icon>home</mat-icon>
+      <h4 mat-line>Nome Cliente</h4>
+      <p mat-line> {{rows?.nome_cliente}} </p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <mat-icon mat-list-icon>business</mat-icon>
+      <h4 mat-line>Tipo accesso</h4>
+      <p mat-line> {{rows?.tipo_accesso}} </p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <mat-icon mat-list-icon>account_circle</mat-icon>
+      <h4 mat-line>Username</h4>
+      <p mat-line> {{rows?.username}} </p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <mat-icon mat-list-icon>note_add</mat-icon>
+      <h4 mat-line>Note</h4>
+      <p mat-line> {{rows?.note}} </p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+      <mat-icon mat-list-icon>visibility</mat-icon>
+      <h4 mat-line>Password</h4>
+      <p mat-line> {{rows?.decryptedString}} </p>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </mat-list>
+  </mat-card>
+
