@@ -130,17 +130,25 @@ router.put('/update',   (req, res) => {
      console.log('pass ' + encryptedString);
 
       userModel.password = encryptedString;
+     let text= [];
+     let values= [];
+     if(req.body.password.length <= 16){
+      text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3), password=($4), note=($5)   WHERE id=($6) '
+      values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso,  userModel.password,  userModel.note, userModel.id ];
+     } else {
+       text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3),  note=($4)   WHERE id=($5) '
+      values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso, userModel.note, userModel.id ];
+     }
 
-
-      const text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3), password=($4), note=($5)   WHERE id=($6) '
-     const values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso,  userModel.password,  userModel.note, userModel.id ];
+     // const text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3), password=($4), note=($5)   WHERE id=($6) '
+     //const values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso,  userModel.password,  userModel.note, userModel.id ];
 
     var client = new pg.Client(connectionString);
     client.connect(function(err) {
       if(err) {
         return console.error('could not connect to postgres', err);
       }
-      client.query(text, [userModel.name, userModel.username, userModel.tipo_accesso,  userModel.password,  userModel.note, userModel.id ], function(err, res) {
+      client.query(text, values, function(err, res) {
         if(err) {
           return console.error('error running query', err);
         }
@@ -242,15 +250,15 @@ client.query(searchResult, [req.query.name], function(req, result){
 
 // sotto parametri ricerca dati
 /*
-router.get('/search/:id/:name',  (req, res, next) => {
+router.get('/search/:name',  (req, res, next) => {
+let password = req.query.password;
 
-
-const searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users  where nome_cliente= $1 AND id=$2';
+const searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users  where nome_cliente= $1';
 
 
 var client = new pg.Client(connectionString);
 client.connect(function(err){
-client.query(searchResult, [req.params.id, req.params.name], function(req, result){
+client.query(searchResult, [password], function(req, result){
 // console.log(result.rows[0]);
 searchRes = result;
 client.end();

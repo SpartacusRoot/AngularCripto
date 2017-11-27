@@ -2,7 +2,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import {
   FormsModule,
-  ReactiveFormsModule
+  ReactiveFormsModule,
+  Validators,
+  MaxLengthValidator
 } from '@angular/forms';
 
 // Angular Material
@@ -31,6 +33,7 @@ export class CriptogrammaComponent implements OnInit {
   result: any;
   results: Object;
    hide: boolean;
+   maxlength: string;
     constructor(private http: HttpClient, public dialog: MatDialog) {
     }
 

@@ -27,3 +27,10 @@ width: 100%;
   z-index: 2;
 }
 
+mat-progress-spinner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 1;
+  transition: opacity 250ms linear;
+}

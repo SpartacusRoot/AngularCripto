@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { Component } from '@angular/core';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // angular Material
 import {MatToolbarModule} from '@angular/material';
 import {MatSidenavModule} from '@angular/material';

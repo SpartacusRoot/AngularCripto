@@ -30,7 +30,7 @@
       </mat-form-field>
 
       <mat-form-field>
-          <input matInput placeholder="modifica password"  [type]="hide ? 'password' : 'text'" required id="fieldName" [(ngModel)]="password" name="password" ngModel>
+          <input matInput placeholder="modifica password"   [type]="hide ? 'password' : 'text'" required id="fieldName" [(ngModel)]="password" name="password"  ngModel>
           <mat-icon matSuffix >vpn_key</mat-icon>
         </mat-form-field>
 
@@ -39,7 +39,7 @@
             <mat-icon matSuffix>note_add</mat-icon>
 
           </mat-form-field>
-    <button mat-raised-button class="submit-button" type="submit"  (click)="openDialog(g.value)" >salva</button>
+    <button mat-raised-button class="submit-button" type="submit" (click)="openDialog(g.value)" >salva</button>
     </form>
     </div>
     </mat-card>

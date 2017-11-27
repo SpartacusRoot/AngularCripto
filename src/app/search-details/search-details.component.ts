@@ -21,6 +21,7 @@ import {MatDialogModule} from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import { DialogUpdateComponent } from '../dialog-update/dialog-update.component';
+import { NgForm } from '@angular/forms/src/directives/ng_form';
 
 @Component({
   selector: 'app-search-details',
@@ -67,6 +68,7 @@ export class SearchDetailsComponent implements OnInit {
 
 
     onSubmit(value: string): void {
+
       console.log('you submitted value:', value);
       this.http.put('api/update', value).subscribe(res  => {
       this.result = value['results'];

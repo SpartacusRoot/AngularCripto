@@ -1,0 +1,10 @@
+.app-loading {
+  background-color:#ffea00;
+  .logo {
+    width: 200px;
+    height: 200px;
+
+    // this way asset gets processed by webpack
+    background: url(./app/assets/logo.png) center center no-repeat;
+  }
+}

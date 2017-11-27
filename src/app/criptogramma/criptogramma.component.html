@@ -4,6 +4,9 @@
 </button>
 <router-outlet name="criptogramma"></router-outlet>
 <mat-card class="main-form">
+    <mat-card-title>
+        Crea criptogramma
+    </mat-card-title>
     <div class="example-container">
     <form #f="ngForm"  class="example-container">
       <mat-form-field>
@@ -23,8 +26,9 @@
       </mat-form-field>
 
       <mat-form-field>
-          <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" required id="fieldName" [(ngModel)]="password" name="password" ngModel>
+          <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" required maxlength="15" id="fieldName" [(ngModel)]="password" name="password" ngModel>
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+
         </mat-form-field>
 
         <mat-form-field>

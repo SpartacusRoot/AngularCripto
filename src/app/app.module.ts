@@ -6,7 +6,7 @@ import {
    RouteReuseStrategy
    } from '@angular/router';
 
-  import { CustomReuseStrategy } from './custom.reuse.strategy';
+ // import { CustomReuseStrategy } from './custom.reuse.strategy';
 import { BrowserModule } from '@angular/platform-browser';
 import { Component, NgModule } from '@angular/core';
 import { Http, HttpModule } from '@angular/http';
@@ -32,6 +32,7 @@ import {MatCardModule} from '@angular/material';
 import {MatTableModule} from '@angular/material';
 import {MatListModule} from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 // component
 import { TableBasicExampleComponent } from './table-basic-example/table-basic-example.component';
 import { DecryptComponent } from './decrypt/decrypt.component';
@@ -51,7 +52,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   {path: 'edit', component: SearchDetailsComponent, pathMatch: 'prefix'},
-  {path: 'ricerca', component: TableBasicExampleComponent},
+  {path: 'ricerca', component: TableBasicExampleComponent, pathMatch: 'prefix'},
   {path: 'api/decrypt', component:  DecryptComponent, pathMatch: 'prefix'},
   {path: 'criptogramma', component: CriptogrammaComponent},
   {path: 'decripta', component: DecriptaUrlComponent, pathMatch: 'prefix'}
@@ -97,14 +98,15 @@ const routes: Routes = [
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatProgressSpinnerModule
 
 
   ],
-  providers: [ {
-    provide: RouteReuseStrategy,
-    useClass: CustomReuseStrategy
-}],
+  providers: [ // {
+  //  provide: RouteReuseStrategy,
+  //  useClass: CustomReuseStrategy }
+],
   bootstrap: [AppComponent],
   entryComponents: [DialogPostComponent, DialogUpdateComponent]
 })

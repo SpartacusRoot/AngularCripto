@@ -1,3 +1,4 @@
+
 <mat-toolbar color="primary" class="mat-elevation-z8">
   <button mat-icon-button (click)="sidenav.toggle()" class="menu-icon">
    <mat-icon class="mat-24" color="accent" >menu</mat-icon>
@@ -5,6 +6,7 @@
   <mat-button-toggle routerLink='/home'><h2>CryptoTemera</h2></mat-button-toggle>
 
 </mat-toolbar>
+
 <mat-sidenav-container >
   <mat-sidenav #sidenav mode="side" class="sidenav-open">
     <mat-list>
@@ -15,6 +17,7 @@
     </mat-list>
   </mat-sidenav>
  <div class="app-content">
+
   <router-outlet></router-outlet>
  </div>
 </mat-sidenav-container>

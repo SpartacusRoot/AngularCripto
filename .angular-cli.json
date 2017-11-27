@@ -20,7 +20,8 @@
       "prefix": "app",
       "styles": [
             "styles.scss",
-            "custom-theme.scss"
+            "custom-theme.scss",
+            "styles-app-loading.scss"
       ],
       "scripts": [
 

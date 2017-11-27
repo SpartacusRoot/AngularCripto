@@ -4,6 +4,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
+import {ObserversModule} from '@angular/cdk/observers';
 @Component({
   selector: 'app-dialog-update',
   templateUrl: './dialog-update.component.html',
@@ -38,9 +39,9 @@ export class DialogUpdateComponent implements OnInit {
     console.log('you submitted value:', this.data);
     this.http.put('api/update', this.data).subscribe(res  => {
     this.result = this.data['results'];
-console.log(this.result);
-this.dialogRef.close();
-this.router.navigate(['ricerca']);
+    this.dialogRef.close();
+    this.router.navigate(['ricerca'], {queryParams: { nome_cliente: this.data.nome_cliente, tipo_accesso: this.data.tipo_accesso
+  , password: this.data.password }});
 
     });
   }
@@ -52,5 +53,7 @@ openSnackBar() {
   .open('I tuoi dati sono stati correttamente aggiornati', 'x', { duration: 2000 });
   console.log('you submitted value:', this.data);
 }
+
+
 
 }
