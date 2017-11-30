@@ -25,7 +25,7 @@ router.get('/', (req, res) => {
   res.send('api works');
 });
 
-router.post('/form',   (req, res) => {
+router.post('/form',   (req, response) => {
 
   function encrypt(text) {
     let iv = crypto.randomBytes(IV_LENGTH);
@@ -63,27 +63,77 @@ var userModel = {};
   encryptedString = encrypt(userModel.password);
    console.log(encryptedString);
    userModel.password = encryptedString;
+// prova WHERE NOT EXISTS
+let text= [];
 
-  const text = 'INSERT INTO users(nome_cliente, username, tipo_accesso, password, note) VALUES($1, $2, $3, $4, $5) RETURNING *'
-  const values = [req.body.name, req.body.username, userModel.access,  userModel.password,  userModel.note ];
 
+
+
+  const checkName = 'SELECT nome_cliente, username FROM users WHERE nome_cliente=($1) OR username= ($2)'
+  const values = [req.body.name, req.body.username, userModel.access,  userModel.password,  userModel.note];
+  const checkValue = [req.body.name, req.body.username];
   var client = new pg.Client(connectionString);
   client.connect(function(err) {
     if(err) {
       return console.error('could not connect to postgres', err);
     }
-    client.query(text, values, function(err, res) {
-      if(err) {
-        return console.error('error running query', err);
+    client.query(checkName, checkValue, function(err, res) {
+      if(res.rows.length > 0 ) {
+          console.log(res.rows,'already exist')
+
+          res.rows.some(res => {
+
+            if (res.nome_cliente == req.body.name && res.username == req.body.username ) {
+              console.log(res.username,'nome cliente e username cliente già esistenti')
+             return   response.send({ error: 'nome cliente e username cliente già esistenti', status: 201 });
+             }
+
+            else if (res.nome_cliente == req.body.name){
+              console.log('nome cliente già esistente')
+            return response.send({ error: 'nome cliente già esistente', status: 202 });
+
+
+            } else if (res.username == req.body.username){
+              console.log(res.username,'username cliente già esistente')
+       return   response.send({ error: 'username cliente già esistente', status: 203 });
+       }
+          });
+
+        }
+
+
+        else {
+          text = 'INSERT INTO users(nome_cliente, username, tipo_accesso, password, note) VALUES($1, $2, $3, $4, $5) RETURNING *'
+          var client = new pg.Client(connectionString);
+          client.connect(function(err) {
+            if(err) {
+              return console.error('could not connect to postgres', err);
+            }
+            client.query(text, values, function(err, res) {
+              if(err) {
+                return console.error('error running query', err);
+              }
+              console.log(res.rows[0]);
+              client.end();
+          return  response.send({passwordCrypted:userModel.password});
+
+            });
+
+          });
       }
-      console.log(res.rows[0]);
-      client.end();
+      console.log('first', res.rows[0]);
+
     });
   });
 
-res.send({passwordCrypted:userModel.password});
+  });
 
-});
+  // const text = 'INSERT INTO users(nome_cliente, username, tipo_accesso, password, note) VALUES($1, $2, $3, $4, $5) RETURNING *'
+
+
+
+
+
 
 
 router.put('/update',   (req, res) => {

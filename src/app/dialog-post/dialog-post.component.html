@@ -3,6 +3,7 @@
 <mat-dialog-content>
   <mat-list>
     <h2 mat-subheader>I dati inseriti sono corretti?</h2>
+
     <mat-list-item>
      <h4 matLine>nome cliente : {{name}}</h4>
     </mat-list-item>
@@ -23,10 +24,13 @@
             <h4 matLine>password : {{password}}</h4>
            </mat-list-item>
            <mat-divider></mat-divider>
+
+
            <div  *ngIf="passwordCrypted">
 
           <h3 >Il tuo criptogramma è: </h3>
           <h4 class="crypto">{{passwordCrypted}}</h4>
+
           <a mat-raised-button href="http://localhost:3000/decripta?password={{passwordCrypted}}" color="primary">URL LINK</a>
 
           <mat-divider></mat-divider>
@@ -40,11 +44,15 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button mat-raised-button  color="accent" (click)="openSnackBar()" (click)="onClick()" [disabled]="isDisabled" >Salva e Crea Criptogramma</button>
+    <button mat-raised-button  color="accent"  (click)="onClick()"  [disabled]="isDisabled" >Salva e Crea Criptogramma</button>
     <div *ngIf="isDisabled; else annulla">
-    <button mat-raised-button color="warn" (click)="dialogRef.close('annulla')">Chiudi</button>
+    <button mat-raised-button color="warn" (click)="dialogRef.close('annulla')" routerLink="/home">Chiudi</button>
     </div>
     <ng-template #annulla>
     <button mat-raised-button color="warn" (click)="dialogRef.close('annulla')">Annulla</button>
-    </ng-template>
+    </ng-template >
+    <div *ngIf="isDisabled">
+
+    <button mat-raised-button color="warn" (click)="dialogRef.close('annulla')">Modifica</button>
+    </div>
 </mat-dialog-actions>
