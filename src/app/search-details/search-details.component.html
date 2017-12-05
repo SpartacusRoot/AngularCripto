@@ -9,24 +9,27 @@
         <form #g="ngForm"  class="example-container">
 
         <mat-form-field>
-            <input matInput placeholder="ID"   name="id" [(ngModel)]="id" ngModel>
+            <input matInput placeholder="ID"  readonly="true" name="id" [(ngModel)]="id" ngModel>
             <mat-icon matSuffix>account_circle</mat-icon>
             </mat-form-field>
       <mat-form-field>
 
-        <input matInput placeholder="Nome cliente" id="fieldName" name="nome_cliente" [(ngModel)]="nome_cliente" ngModel required>
+        <input matInput  placeholder="Nome cliente" [formControl]="name_validator" id="fieldName" name="nome_cliente" [(ngModel)]="nome_cliente" ngModel required #searchTerm>
 
         <mat-icon matSuffix>face</mat-icon>
+        <mat-error *ngIf="error">{{error}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-      <input matInput placeholder="Username" required name="username" [(ngModel)]="username" ngModel>
+      <input matInput placeholder="Username"    name="username" [(ngModel)]="username" ngModel #searchTerm2>
       <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-error *ngIf="error">{{error}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Tipo d'accesso" name="tipo_accesso" [(ngModel)]="tipo_accesso" ngModel>
+        <input matInput placeholder="Tipo d'accesso"  name="tipo_accesso" [(ngModel)]="tipo_accesso" ngModel #searchTerm3>
         <mat-icon matSuffix>business</mat-icon>
+        <mat-error *ngIf="error">{{error}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
@@ -39,7 +42,7 @@
             <mat-icon matSuffix>note_add</mat-icon>
 
           </mat-form-field>
-    <button mat-raised-button class="submit-button" type="submit" (click)="openDialog()" >salva</button>
+    <button mat-raised-button class="submit-button" type="submit" (click)="openDialog()"  >salva</button>
     </form>
     </div>
     </mat-card>

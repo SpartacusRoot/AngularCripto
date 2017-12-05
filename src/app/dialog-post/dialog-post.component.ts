@@ -66,7 +66,7 @@ switch (this.status) {
   break;
   case 201:
   this.snackBar
-  .open('Il nome cliente e username inseriti sono già esistenti', 'x', { duration: 3000 });
+  .open('Il nome cliente, il tipo d accesso e username inseriti sono già esistenti', 'x', { duration: 3000 });
   break;
   default:
   this.snackBar

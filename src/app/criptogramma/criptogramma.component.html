@@ -8,35 +8,42 @@
         Crea criptogramma
     </mat-card-title>
     <div class="example-container">
-    <form #f="ngForm"  class="example-container">
+    <form  #f="ngForm"  class="example-container">
       <mat-form-field>
 
-        <input matInput placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel required #searchTerm >
+        <input matInput  [formControl]="name_validator" placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel  #searchTerm >
         <mat-icon matSuffix>face</mat-icon>
+        <mat-error *ngIf="error">{{error}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-      <input matInput placeholder="Username" required [(ngModel)]="username" name="username" ngModel>
+      <input   matInput placeholder="Username" [formControl]="name_validator"  [(ngModel)]="username" name="username" ngModel #searchTerm2>
       <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-error *ngIf="error">{{error}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput placeholder="Tipo d'accesso" [(ngModel)]="access" name="access" ngModel required>
+        <input matInput [formControl]="name_validator"  placeholder="Tipo d'accesso" [(ngModel)]="access" name="access" ngModel  #searchTerm3>
         <mat-icon matSuffix>business</mat-icon>
+        <mat-error *ngIf="error">{{error}}</mat-error>
       </mat-form-field>
 
-      <mat-form-field>
-          <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'" required maxlength="15" id="fieldName" [(ngModel)]="password" name="password" ngModel>
+      <mat-form-field hintLabel="Max 15 characters">
+          <input matInput #input placeholder="Enter your password" [type]="hide ? 'password' : 'text'" required maxlength="15" id="fieldName"  [(ngModel)]="password" name="password" ngModel>
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
-
+          <mat-hint align="end">{{input.value?.length || 0}}/15</mat-hint>
         </mat-form-field>
 
         <mat-form-field>
-            <textarea matInput placeholder="Note" name="note" [(ngModel)]="note" ngModel></textarea>
+            <textarea matInput placeholder="Note" name="note" [(ngModel)]="note" matAutosizeMinRows="5" ngModel></textarea>
             <mat-icon matSuffix>note_add</mat-icon>
 
           </mat-form-field>
-    <button mat-raised-button class="submit-button" color="accent" type="submit" [disabled]="f.invalid" (click)="openDialog()">Inserisci</button>
+
+
+      <button mat-raised-button class="submit-button" color="accent" type="submit" [disabled]="f.invalid " (click)="onSubmit(searchTerm,searchTerm2,searchTerm3)">Inserisci</button>
+
+
     </form>
     </div>
 

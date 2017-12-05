@@ -93,11 +93,11 @@ password: resPassword, note: resNote, tipo_accesso: resAccesso} }   );
 
 getName  (searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTerm3: HTMLInputElement) {
   let params = new HttpParams();
-   // params.set('nome', searchTerm.value);
-   // params.set('tipo_accesso', searchTerm2.value);
+    params.set('nome', searchTerm.value);
+    params.set('tipo_accesso', searchTerm2.value);
     params = params.append('nome_cliente', searchTerm.value);
-  //  params = params.append('tipo_accesso', searchTerm2.value);
-  //  params = params.append('password', searchTerm3.value);
+    params = params.append('tipo_accesso', searchTerm2.value);
+    params = params.append('password', searchTerm3.value);
     this.http.get('api/search', {params: params}).subscribe(data1$ => {
       this.rows = data1$;
       console.log(this.rows);

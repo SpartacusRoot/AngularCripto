@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import 'rxjs/add/operator/switchMap';
-import { HttpClient} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Http } from '@angular/http';
 import {
   FormsModule,
@@ -22,6 +22,14 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import { DialogUpdateComponent } from '../dialog-update/dialog-update.component';
 import { NgForm } from '@angular/forms/src/directives/ng_form';
+import {
+  Validators,
+  MaxLengthValidator,
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  FormControl
+} from '@angular/forms';
 
 @Component({
   selector: 'app-search-details',
@@ -41,7 +49,9 @@ export class SearchDetailsComponent implements OnInit {
   private sub: any;
   result: any;
   results: Object;
-
+  status: boolean;
+  error: string;
+  name_validator = new FormControl('', [Validators.required, Validators.email]);
 
   constructor(private route: ActivatedRoute,
     private router: Router, private http: HttpClient, public dialog: MatDialog) { }
@@ -67,12 +77,23 @@ export class SearchDetailsComponent implements OnInit {
     }
 
 
-    onSubmit(value: string): void {
+    onSubmit(searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTerm3: HTMLInputElement): void {
 
-      console.log('you submitted value:', value);
-      this.http.put('api/update', value).subscribe(res  => {
-      this.result = value['results'];
-      console.log(this.result);
+        let params = new HttpParams();
+        params = params.append('nome_cliente', searchTerm.value);
+        params = params.append('username', searchTerm2.value);
+        params = params.append('tipo_accesso', searchTerm3.value);
+        this.http.get('api/check', {params: params}).subscribe(res  => {
+        this.result = res['results'];
+        this.status = res['status'];
+        this.error = res['error'];
+
+        console.log(this.result, this.status, this.error);
+        if (this.status === false) {
+          return this.openDialog();
+          } else if (this.status === true) {
+          console.log('i dati non sono corretti');
+          }
 
       });
     }

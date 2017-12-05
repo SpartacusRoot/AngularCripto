@@ -21,8 +21,37 @@ HMAC_KEY = crypto.randomBytes(32);
 
 
 /* GET api listing. */
-router.get('/', (req, res) => {
-  res.send('api works');
+router.get('/check', (req, resp) => {
+
+     const checkName = 'SELECT nome_cliente, username, tipo_accesso FROM users WHERE nome_cliente=($1) OR username= ($2) AND tipo_accesso=($3)'
+   const checkValue = [req.query.nome_cliente, req.query.username, req.query.tipo_accesso];
+  var client = new pg.Client(connectionString);
+  client.connect(function(err) {
+    if(err) {
+      return console.error('could not connect to postgres', err);
+    }
+    client.query(checkName, checkValue,  function(err, res) {
+    if(err) {
+      return console.error('error running query', err);
+      }
+     if(res.rows.length > 0 ) {
+        res.rows.some(res =>{
+       if (res.nome_cliente === req.query.nome_cliente && res.username === req.query.username && res.tipo_accesso === req.query.tipo_accesso) {
+          return resp.send({ error: 'la combinazione nome cliente , username e tipo accesso è già esistente', status: true });
+        }
+        else {
+          return resp.send({status: false});
+        }
+      });
+
+    } else {
+      return resp.send({status: false});
+    }
+   client.end();
+});
+});
+
+
 });
 
 router.post('/form',   (req, response) => {
@@ -42,9 +71,9 @@ router.post('/form',   (req, response) => {
      hmac = crypto.createHmac(HMAC_ALGORITHM, HMAC_KEY);
        hmac.update(cipher_text);
       hmac.update(iv.toString('hex')); // ensure that both the IV and the cipher-text is protected by the HMAC
-        console.log(encrypt, cipher_text, iv.toString('hex'));
+     //   console.log(encrypt, cipher_text, iv.toString('hex'));
         // The IV isn't a secret so it can be stored along side everything else
-        return cipher_text +'$' + iv.toString('hex')+ "$" + hmac.digest('hex');
+        return cipher_text +'$' + iv.toString('hex')+ '$' + hmac.digest('hex');
 
    }
 // var cryptr = new Cryptr('myTotalySecretKey');
@@ -69,41 +98,9 @@ let text= [];
 
 
 
-  const checkName = 'SELECT nome_cliente, username FROM users WHERE nome_cliente=($1) OR username= ($2)'
+
   const values = [req.body.name, req.body.username, userModel.access,  userModel.password,  userModel.note];
-  const checkValue = [req.body.name, req.body.username];
-  var client = new pg.Client(connectionString);
-  client.connect(function(err) {
-    if(err) {
-      return console.error('could not connect to postgres', err);
-    }
-    client.query(checkName, checkValue, function(err, res) {
-      if(res.rows.length > 0 ) {
-          console.log(res.rows,'already exist')
-
-          res.rows.some(res => {
-
-            if (res.nome_cliente == req.body.name && res.username == req.body.username ) {
-              console.log(res.username,'nome cliente e username cliente già esistenti')
-             return   response.send({ error: 'nome cliente e username cliente già esistenti', status: 201 });
-             }
-
-            else if (res.nome_cliente == req.body.name){
-              console.log('nome cliente già esistente')
-            return response.send({ error: 'nome cliente già esistente', status: 202 });
-
-
-            } else if (res.username == req.body.username){
-              console.log(res.username,'username cliente già esistente')
-       return   response.send({ error: 'username cliente già esistente', status: 203 });
-       }
-          });
-
-        }
-
-
-        else {
-          text = 'INSERT INTO users(nome_cliente, username, tipo_accesso, password, note) VALUES($1, $2, $3, $4, $5) RETURNING *'
+       text = 'INSERT INTO users(nome_cliente, username, tipo_accesso, password, note) VALUES($1, $2, $3, $4, $5) RETURNING *'
           var client = new pg.Client(connectionString);
           client.connect(function(err) {
             if(err) {
@@ -117,11 +114,11 @@ let text= [];
               client.end();
           return  response.send({passwordCrypted:userModel.password});
 
-            });
 
-          });
-      }
-      console.log('first', res.rows[0]);
+
+
+
+
 
     });
   });
@@ -248,8 +245,8 @@ json = result;
     var searchRes = {};
     let searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users where TRUE=TRUE';
     let queryParams = [];
-    /*
-    if(req.query.nome_cliente && req.query.nome_cliente != ''){
+
+ /*   if(req.query.nome_cliente && req.query.nome_cliente != ''){
       searchResult += " AND nome_cliente = $1"
       queryParams.push(req.query.nome_cliente);
     }
@@ -258,7 +255,8 @@ json = result;
       searchResult += " AND tipo_accesso = $" + (queryParams.length + 1);
       queryParams.push(req.query.tipo_accesso);
     }
-*/
+    */
+
     req.query.nome_cliente && req.query.nome_cliente   != ''  ? (searchResult += " AND nome_cliente = $1" , queryParams.push(req.query.nome_cliente)) : null;
     req.query.tipo_accesso && req.query.tipo_accesso   != '' ? (searchResult += " AND tipo_accesso = $" + (queryParams.length + 1) , queryParams.push(req.query.tipo_accesso)) : null;
     req.query.password && req.query.password != '' ? (searchResult += " AND password = $" + (queryParams.length + 1) , queryParams.push(req.query.password)) : null;
@@ -348,7 +346,7 @@ function decrypt(text) {
   chmac = crypto.createHmac(HMAC_ALGORITHM, HMAC_KEY);
   chmac.update(ct);
   chmac.update(iv.toString('hex'));
-  decryptor = crypto.createDecipheriv(algorithm, key, iv);
+   decryptor = crypto.createDecipheriv(algorithm, key, iv);
   var decryptedText = decryptor.update(ct,'hex', 'utf-8');
   return decryptedText += decryptor.final('utf-8');
 
@@ -409,9 +407,9 @@ client.query(dbReturn,[password], function(req , result) {
 json = result.rows[0];
    // json = JSON.stringify(res);
     client.end();
- // var json = result.rows;
- // wrap result-set as json
-   console.log('JSON-result:', json);
+            // var json = result.rows;
+            // wrap result-set as json
+            console.log('JSON-result:', json);
    let decryptedString = decrypt(password);
    json.decryptedString = decryptedString;
    console.log('ecco',json.decryptedString)
