@@ -1,17 +1,6 @@
-import { TimerObservable } from 'rxjs/observable/TimerObservable';
-import { IntervalObservable } from 'rxjs/observable/IntervalObservable';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import {Component, OnInit, ChangeDetectionStrategy, Input} from '@angular/core';
-import {DataSource} from '@angular/cdk/collections';
+import {Component, OnInit, Input} from '@angular/core';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/mergeMap';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-
-
-
-
 import {MatTableModule} from '@angular/material';
 import { ItemsResponse } from './../home/itemResponse';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -44,7 +33,7 @@ export class TableBasicExampleComponent implements OnInit {
 
  res: ItemsResponse[] = [];
  selectedRes: ItemsResponse;
-data1$:  BehaviorSubject<any> = new BehaviorSubject({});
+data1:  any;
 row: any;
 results: any;
 private sub: any;
@@ -98,22 +87,13 @@ getName  (searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTer
     params = params.append('nome_cliente', searchTerm.value);
     params = params.append('tipo_accesso', searchTerm2.value);
     params = params.append('password', searchTerm3.value);
-    this.http.get('api/search', {params: params}).subscribe(data1$ => {
-      this.rows = data1$;
+    this.http.get('api/search', {params: params}).subscribe(data1 => {
+      this.rows = data1;
       console.log(this.rows);
 
         });
 
 
-  /* return IntervalObservable
-  .create(5000)
-  .flatMap((i)  =>
-  this.http.get<ItemsResponse>('api/search', {params: params} )).subscribe(data1 => {
-this.results = data1;
-console.log(this.results);
-  });
-
-*/
 }
 
 
@@ -122,8 +102,8 @@ updateData() {
   params = params.append('nome_cliente', this.nome_cliente);
  // params = params.append('tipo_accesso', this.tipo_accesso);
  // params = params.append('password', this.password);
-  this.http.get('api/search', {params: params}).subscribe(data1$ => {
-    this.rows = data1$;
+  this.http.get('api/search', {params: params}).subscribe(data1 => {
+    this.rows = data1;
     console.log(this.rows);
   });
 }

@@ -4,14 +4,11 @@ var Buffer = require('buffer').Buffer;
 var pg = require('pg');
 const { Pool, Client } = require('pg');
 const connectionString = 'postgresql://postgres:FAntasydj87@localhost:5432/users';
-
-// var Cryptr = require('cryptr');
 var  algorithm, key, HMAC_ALGORITHM, HMAC_KEY;
 const crypto = require('crypto');
 algorithm = 'aes-256-cbc';
 HMAC_ALGORITHM = 'SHA256';
 key= '3zTvzr3p67VC61jmV54rIYu1545x4TlY';
-// key= crypto.randomBytes(32);
 const IV_LENGTH = 16;
 HMAC_KEY = crypto.randomBytes(32);
 
@@ -23,8 +20,8 @@ HMAC_KEY = crypto.randomBytes(32);
 /* GET api listing. */
 router.get('/check', (req, resp) => {
 
-     const checkName = 'SELECT nome_cliente, username, tipo_accesso FROM users WHERE nome_cliente=($1) OR username= ($2) AND tipo_accesso=($3)'
-   const checkValue = [req.query.nome_cliente, req.query.username, req.query.tipo_accesso];
+  const checkName = 'SELECT nome_cliente, username, tipo_accesso FROM users WHERE nome_cliente=($1) OR username= ($2) AND tipo_accesso=($3)'
+  const checkValue = [req.query.nome_cliente, req.query.username, req.query.tipo_accesso];
   var client = new pg.Client(connectionString);
   client.connect(function(err) {
     if(err) {
@@ -76,7 +73,7 @@ router.post('/form',   (req, response) => {
         return cipher_text +'$' + iv.toString('hex')+ '$' + hmac.digest('hex');
 
    }
-// var cryptr = new Cryptr('myTotalySecretKey');
+
 var userModel = {};
  userModel.name = req.body.name;
  userModel.password = req.body.password;
@@ -86,13 +83,12 @@ var userModel = {};
 
 
 
-  //  var encryptedString = cryptr.encrypt(userModel.password);
+
 
 
   encryptedString = encrypt(userModel.password);
    console.log(encryptedString);
    userModel.password = encryptedString;
-// prova WHERE NOT EXISTS
 let text= [];
 
 
@@ -113,29 +109,14 @@ let text= [];
               console.log(res.rows[0]);
               client.end();
           return  response.send({passwordCrypted:userModel.password});
-
-
-
-
-
-
-
     });
   });
 
   });
 
-  // const text = 'INSERT INTO users(nome_cliente, username, tipo_accesso, password, note) VALUES($1, $2, $3, $4, $5) RETURNING *'
+ router.put('/update',   (req, res) => {
 
 
-
-
-
-
-
-router.put('/update',   (req, res) => {
-
- // var cryptr = new Cryptr('myTotalySecretKey');
   var userModel = {};
    userModel.name = req.body.nome_cliente;
    userModel.password = req.body.password;
@@ -144,10 +125,7 @@ router.put('/update',   (req, res) => {
    userModel.username  = req.body.username;
    userModel.id = req.body.id;
 
-
-    // var encryptedString = cryptr.encrypt(userModel.password);
-
-    function encrypt(text) {
+function encrypt(text) {
       let iv = crypto.randomBytes(IV_LENGTH);
       var cipher_text;
       var hmac;
@@ -159,20 +137,10 @@ router.put('/update',   (req, res) => {
       encryptor.end();
       cipher_text = encryptor.read();
 
-       /*   hmac = crypto.createHmac(HMAC_ALGORITHM, HMAC_KEY);
-          hmac.update(cipher_text);
-          hmac.update(iv.toString('hex')); // ensure that both the IV and the cipher-text is protected by the HMAC
-
-          // The IV isn't a secret so it can be stored along side everything else
-          */
-          return cipher_text + "$" +iv.toString('hex'); // + "$" + hmac.digest('hex');
+          return cipher_text + "$" +iv.toString('hex');
           console.log(encrypt);
      }
      var  encryptedString = encrypt(userModel.password);
-     //
-
-
-  // var encryptedString = decrypt(userModel.password);
     console.log('nome '+userModel.name, 'note '+ userModel.note, 'id'+ userModel.id, 'accesso '+ req.body.tipo_accesso);
      console.log('pass ' + encryptedString);
 
@@ -186,10 +154,6 @@ router.put('/update',   (req, res) => {
        text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3),  note=($4)   WHERE id=($5) '
       values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso, userModel.note, userModel.id ];
      }
-
-     // const text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3), password=($4), note=($5)   WHERE id=($6) '
-     //const values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso,  userModel.password,  userModel.note, userModel.id ];
-
     var client = new pg.Client(connectionString);
     client.connect(function(err) {
       if(err) {
@@ -199,7 +163,7 @@ router.put('/update',   (req, res) => {
         if(err) {
           return console.error('error running query', err);
         }
-        //console.log(res.rows[0]);
+
         client.end();
       });
     });
@@ -224,12 +188,8 @@ const dbReturn = 'SELECT password FROM users';
 var client = new pg.Client(connectionString);
 client.connect(function(err) {
 client.query(dbReturn, function(req , result) {
-   // console.log(result.rows[0]);
 json = result;
-   // json = JSON.stringify(res);
-    client.end();
- // var json = result.rows;
- // wrap result-set as json
+  client.end();
    console.log('JSON-result:', json);
    res.send(json);
   });
@@ -261,74 +221,21 @@ json = result;
     req.query.tipo_accesso && req.query.tipo_accesso   != '' ? (searchResult += " AND tipo_accesso = $" + (queryParams.length + 1) , queryParams.push(req.query.tipo_accesso)) : null;
     req.query.password && req.query.password != '' ? (searchResult += " AND password = $" + (queryParams.length + 1) , queryParams.push(req.query.password)) : null;
 
-
-    // console.log(searchResult);
     var client = new pg.Client(connectionString);
     client.connect(function(err){
     client.query(searchResult, queryParams, function(req, result){
-
-    // console.log(result);
       searchRes = result;
       client.end();
-    // console.log('search result :', searchRes.rows[1].id);
       res.send(searchRes.rows);
     });
   });
 });
-/*
-
-
-const searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users  where nome_cliente= $1 ';
-
-
-var client = new pg.Client(connectionString);
-client.connect(function(err){
-client.query(searchResult, [req.query.name], function(req, result){
-
-//  console.log(result.rows[0]);
-  searchRes = result;
-  client.end();
- // console.log('search result :', searchRes.rows[1].id);
-  res.send(searchRes.rows);
-});
-});
-*/
-
-
-
-// sotto parametri ricerca dati
-/*
-router.get('/search/:name',  (req, res, next) => {
-let password = req.query.password;
-
-const searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users  where nome_cliente= $1';
-
-
-var client = new pg.Client(connectionString);
-client.connect(function(err){
-client.query(searchResult, [password], function(req, result){
-// console.log(result.rows[0]);
-searchRes = result;
-client.end();
-console.log('search result :', searchRes);
-res.send(searchRes.rows);
-});
-});
-
-
-});
-
-*/
 
 router.post('/decrypt',  (req, res, next) => {
 
   console.log('password criptata '+ req.body.password);
-  //var cryptr = new Cryptr('myTotalySecretKey');
-
   var encryptedString = req.body.password;
 
-
-//var decryptedString = cryptr.decrypt(encryptedString);
 function decrypt(text) {
   let textParts = text.split('$');
 
@@ -366,23 +273,6 @@ function decrypt(text) {
 
   return sentinel === 0;
  };
-
-
-
-/*
-  function decrypt(text) {
-    iv = new Buffer ( text.slice(31, 63), 'hex');
-    let decipher = crypto.createDecipheriv('aes-256-cbc', new Buffer (key), iv);
-    console.log(iv);
-    let decrypted = decipher.update(text,'hex','utf-8');
-  // decrypted += decipher.final('utf8');
-  // console.log('test ' + decrypted);
-    return Buffer.concat([decrypted, decipher.final('utf-8')]).toString();
-
-  }
-
-*/
-
   var decryptedString = decrypt(req.body.password);
   console.log(decryptedString);
 

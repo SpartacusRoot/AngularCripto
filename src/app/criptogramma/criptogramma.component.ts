@@ -48,14 +48,6 @@ export class CriptogrammaComponent implements OnInit {
     constructor(private http: HttpClient, public dialog: MatDialog) {
     }
 
-
-    getErrorMessage() {
-
-      return this.name_validator.hasError('required') ? 'You must enter a value' :
-         // this.name_validator.hasError('status') ? 'la combinazione risulta già esistente' :
-              '';
-    }
-
     openDialog() {
 
       const dialog = this.dialog.open( DialogPostComponent, {
