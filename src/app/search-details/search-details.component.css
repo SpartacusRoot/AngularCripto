@@ -1,5 +1,8 @@
 .main-form {
-  margin: 2%;
+  margin-left: 7%;
+  margin-top: 1%;
+  margin-right: 2%;
+
 }
 
 
@@ -21,7 +24,7 @@
 
 .callback-button {
   margin-top: 2%;
-  margin-left: 2%;
+  margin-left: 7%;
   background-color: #FFFF00;
 }
 
@@ -31,7 +34,7 @@
 
 
 #body-wrapper {
-  background-image: url('../assets/screensaver.png');
+  background-image: url('../../assets/screensaver.png');
   background-repeat: no-repeat;
   height: 700px;
 }

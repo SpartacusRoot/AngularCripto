@@ -31,6 +31,7 @@
     "cryptr": "^2.0.0",
     "each-async": "^1.1.1",
     "express": "^4.16.0",
+    "ng-animate": "^0.3.1",
     "pg": "^7.3.0",
     "pg-promise": "^6.10.1",
     "rxjs": "^5.5.2",

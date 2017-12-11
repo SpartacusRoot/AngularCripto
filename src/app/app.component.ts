@@ -6,6 +6,7 @@ import {MatToolbarModule} from '@angular/material';
 import {MatSidenavModule} from '@angular/material';
 import {MatIconModule} from '@angular/material';
 import {MatListModule} from '@angular/material';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-root',
@@ -13,9 +14,10 @@ import {MatListModule} from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-
 constructor(public router: Router) {}
   goTo() {
     this.router.navigate(['/criptogramma']);
   }
+
+
 }

@@ -4,13 +4,22 @@ import { Component, OnInit } from '@angular/core';
 import {MatIconModule} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+// animations
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { fadeIn } from 'ng-animate';
+
 @Component({
   selector: 'app-decrypt',
   templateUrl: './decrypt.component.html',
-  styleUrls: ['./decrypt.component.css']
+  styleUrls: ['./decrypt.component.css'],
+  animations: [
+    trigger('fadeIn', [transition('* => *', useAnimation(fadeIn, {
+      params: { timing: 0.5 }
+    }))])
+  ]
 })
 export class DecryptComponent implements OnInit {
-  hide = true;
+  fadeIn: any;
   id: number;
   nome_cliente: string;
   username: string;

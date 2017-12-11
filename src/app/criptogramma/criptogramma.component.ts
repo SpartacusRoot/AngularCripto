@@ -21,30 +21,36 @@ import {MatDialogModule} from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import { DialogPostComponent } from '../dialog-post/dialog-post.component';
-// shared service
-
+// animations
+import { trigger, transition, useAnimation } from '@angular/animations';
+import {fadeIn } from 'ng-animate';
 
 
 @Component({
   selector: 'app-criptogramma',
   templateUrl: './criptogramma.component.html',
-  styleUrls: ['./criptogramma.component.css']
+  styleUrls: ['./criptogramma.component.css'],
+  animations: [
+    trigger('fadeIn', [transition('* => *', useAnimation(fadeIn, {
+      params: { timing: 1 }
+    }))])
+  ]
 })
 export class CriptogrammaComponent implements OnInit {
 
-
- name: string;
+  fadeIn: any;
+  name: string;
   username: string;
   password: string;
   note: string;
   access: string;
-  result: any;
+  result: string;
   results: Object;
   status: boolean;
   error: string;
-   hide: boolean;
-   maxlength: string;
-   name_validator = new FormControl('', [Validators.required, Validators.email]);
+  hide: boolean;
+  maxlength: string;
+  name_validator = new FormControl('', [Validators.required, Validators.email]);
     constructor(private http: HttpClient, public dialog: MatDialog) {
     }
 

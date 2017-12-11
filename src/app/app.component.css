@@ -1,3 +1,5 @@
+
+
 .example-container {
   display: flex;
   flex-direction: column;
@@ -9,7 +11,7 @@
 #menu-button {
 color: white;
 text-decoration: none;
-width: 100%;
+
 }
 
 #menu-button:active {
@@ -17,20 +19,56 @@ width: 100%;
 }
 
 
+.sidenav {
+  z-index: 198;
+}
 .sidenav-open {
-  width: 300px;
-  background-color: #34515e;
+  width: 250px;
+  background-color: #37474f;
+
 }
 
 .mat-elevation-z8 {
   position: relative;
-  z-index: 2;
+  z-index: 200;
 }
 
-mat-progress-spinner {
+.overflow-toolbar {
+  height: 100%;
+  width: 66px;
   position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 1;
-  transition: opacity 250ms linear;
+  z-index: 199;
+}
+
+
+.app-toolbar-filler {
+	flex: 1 1 auto;
+}
+
+.close-sidenav {
+	cursor: pointer;
+}
+
+mat-toolbar-row {
+  display: flex;
+  flex-direction: column;
+
+}
+.icon-size {
+  flex: 0 1 auto;
+  color: white;
+
+
+}
+
+.title {
+  margin-left: 7%;
+}
+
+
+
+
+
+::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+  background-color: transparent !important;
 }

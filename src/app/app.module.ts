@@ -52,11 +52,11 @@ import { DecriptaUrlComponent } from './decripta-url/decripta-url.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  {path: 'edit', component: SearchDetailsComponent, pathMatch: 'prefix'},
-  {path: 'ricerca', component: TableBasicExampleComponent, pathMatch: 'prefix'},
-  {path: 'api/decrypt', component:  DecryptComponent, pathMatch: 'prefix'},
-  {path: 'criptogramma', component: CriptogrammaComponent},
-  {path: 'decripta', component: DecriptaUrlComponent, pathMatch: 'prefix'}
+  {path: 'edit', component: SearchDetailsComponent, pathMatch: 'prefix', data: {page: 'modifica'} },
+  {path: 'ricerca', component: TableBasicExampleComponent, pathMatch: 'prefix', data: {page: 'ricerca'} },
+  {path: 'decrypt', component:  DecryptComponent, pathMatch: 'prefix', data: {page: 'decript'} },
+  {path: 'criptogramma', component: CriptogrammaComponent, data: {page: 'criptogramma' } },
+  {path: 'decripta', component: DecriptaUrlComponent, pathMatch: 'prefix', data: {page: 'decripta'}}
 
 
 ];

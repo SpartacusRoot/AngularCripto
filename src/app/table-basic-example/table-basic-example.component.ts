@@ -7,32 +7,20 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import {MatIconModule} from '@angular/material';
 import {MatTooltipModule} from '@angular/material/tooltip';
 
+// animations
 
 
 
 @Component({
   selector: 'app-table-basic-example',
   templateUrl: './table-basic-example.component.html',
-  styleUrls: ['./table-basic-example.component.css'],
+  styleUrls: ['./table-basic-example.component.css']
 
 })
 export class TableBasicExampleComponent implements OnInit {
-  @Input() rows: any;
-
-
-  columns = [
-    { prop: 'nome_cliente', name: 'nome cliente' },
-    { prop: 'username' },
-    { prop: 'password' },
-    { prop: 'tipo_accesso' },
-    { name: 'edit'}
-];
-
-
-
-
- res: ItemsResponse[] = [];
- selectedRes: ItemsResponse;
+rows: any;
+res: ItemsResponse[] = [];
+selectedRes: ItemsResponse;
 data1:  any;
 row: any;
 results: any;
@@ -76,7 +64,7 @@ showDetails2(res: ItemsResponse) {
   const resNote = res ? res.note : null;
   const resAccesso = res ? res.tipo_accesso : null;
 
-this.router.navigate(['api/decrypt/'], { queryParams: { id: resId, name: resName, username: resUsername,
+this.router.navigate(['decrypt'], { queryParams: { id: resId, name: resName, username: resUsername,
 password: resPassword, note: resNote, tipo_accesso: resAccesso} }   );
 }
 

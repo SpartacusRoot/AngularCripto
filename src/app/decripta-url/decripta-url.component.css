@@ -1,0 +1,20 @@
+
+
+.main {
+  margin-left: 7%;
+  margin-top: 1%;
+  margin-right: 2%;
+}
+
+.body-wrapper2 {
+  background-image: url('../../assets/screensaver.png');
+  background-repeat: repeat;
+  height: 665px;
+  opacity: 0.9;
+}
+
+.callback-button {
+  margin-top: 2%;
+  margin-left: 7%;
+  background-color: #FFFF00;
+}

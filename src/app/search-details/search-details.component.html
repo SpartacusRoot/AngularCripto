@@ -3,7 +3,7 @@
   <mat-icon  class="callback-icon" aria-label="Callback icon-button with a arrow icon">navigate_before</mat-icon>
 </button>
 <router-outlet name="criptogramma"></router-outlet>
-<mat-card class="main-form">
+<mat-card class="main-form" [@fadeIn]="fadeIn">
     <div class="example-container">
   <!--  <form #g="ngForm" (ngSubmit)="onSubmit(g.value)" class="example-container"> -->
         <form #g="ngForm"  class="example-container">

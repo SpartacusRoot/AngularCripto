@@ -4,7 +4,7 @@ import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 @Component({
   selector: 'app-decripta-url',
   templateUrl: './decripta-url.component.html',
-  styleUrls: ['./decripta-url.component.scss']
+  styleUrls: ['./decripta-url.component.css']
 })
 export class DecriptaUrlComponent implements OnInit {
   password: string;

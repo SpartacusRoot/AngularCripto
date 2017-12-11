@@ -1360,7 +1360,7 @@ showDetails2(res: ItemsResponse) {
   const resNote &#x3D; res ? res.note : null;
   const resAccesso &#x3D; res ? res.tipo_accesso : null;
 
-this.router.navigate([&#x27;api/decrypt/&#x27;], { queryParams: { id: resId, name: resName, username: resUsername,
+this.router.navigate([&#x27;decrypt&#x27;], { queryParams: { id: resId, name: resName, username: resUsername,
 password: resPassword, note: resNote, tipo_accesso: resAccesso} }   );
 }
 

@@ -1,5 +1,8 @@
 .main-form {
-  margin: 2%;
+  margin-left: 7%;
+  margin-top: 1%;
+  margin-right: 2%;
+
 }
 
 
@@ -21,7 +24,7 @@
 
 .callback-button {
   margin-top: 2%;
-  margin-left: 2%;
+  margin-left: 7%;
 }
 
 .callback-icon {
@@ -30,8 +33,9 @@
 
 
 #body-wrapper {
-  background-image: url('../assets/screensaver.png');
+  background-image: url('../../assets/screensaver.png');
   background-repeat: no-repeat;
   height: 650px;
+  opacity: 0.9;
 }
 

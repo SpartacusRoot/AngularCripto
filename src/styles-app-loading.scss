@@ -1,10 +1,11 @@
 .app-loading {
-  background-color:#ffea00;
+  background: url('./assets/pattern2.png');
+
   .logo {
-    width: 200px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
 
     // this way asset gets processed by webpack
-    background: url(./app/assets/logo.png) center center no-repeat;
+    background: url('./assets/criptoTemeraLogo.png') center center no-repeat;
   }
 }

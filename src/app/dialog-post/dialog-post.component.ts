@@ -51,30 +51,6 @@ isDisabled: boolean;
     this.status = res['status'];
     console.log('statusFirst', this.status);
     this.isDisabled = true;
-   // this.router.navigate(['home']);
-
-switch (this.status) {
-
-  case 202:
-  console.log('status', this.status);
-  this.snackBar
-  .open('Il nome cliente inserito è già esistente', 'x', { duration: 3000 });
-  break;
-  case 203:
-  this.snackBar
-  .open('L username inserito è  già esistente', 'x', { duration: 3000 });
-  break;
-  case 201:
-  this.snackBar
-  .open('Il nome cliente, il tipo d accesso e username inseriti sono già esistenti', 'x', { duration: 3000 });
-  break;
-  default:
-  this.snackBar
-  .open('I tuoi dati sono stati correttamente salvati', 'x', { duration: 3000 });
-  this.router.navigate(['home']);
-}
-
-
   });
 
 

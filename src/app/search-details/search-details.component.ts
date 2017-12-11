@@ -17,7 +17,7 @@ import {MatSelectModule} from '@angular/material';
 import {MatIconModule} from '@angular/material';
 import {MatButtonModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material';
-// diaLog to do
+// diaLog
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import { DialogUpdateComponent } from '../dialog-update/dialog-update.component';
@@ -30,14 +30,25 @@ import {
   FormGroup,
   FormControl
 } from '@angular/forms';
+// animations
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { fadeIn } from 'ng-animate';
+
+
 
 @Component({
   selector: 'app-search-details',
   templateUrl: './search-details.component.html',
-  styleUrls: ['./search-details.component.css']
+  styleUrls: ['./search-details.component.css'],
+  animations: [
+    trigger('fadeIn', [transition('* => *', useAnimation(fadeIn, {
+      params: { timing: 1 }
+    }))])
+  ]
 })
 export class SearchDetailsComponent implements OnInit {
-  hide = true;
+  fadeIn: any;
+  hide= true;
   id: number;
   nome_cliente: string;
   name: string;
@@ -70,10 +81,6 @@ export class SearchDetailsComponent implements OnInit {
           note: this.note
         }
       });
-
-      dialog.afterClosed().subscribe(result => {
-
-      });
     }
 
 
@@ -87,33 +94,12 @@ export class SearchDetailsComponent implements OnInit {
         this.result = res['results'];
         this.status = res['status'];
         this.error = res['error'];
-
-        console.log(this.result, this.status, this.error);
-        if (this.status === false) {
-          return this.openDialog();
-          } else if (this.status === true) {
-          console.log('i dati non sono corretti');
-          }
-
       });
     }
 
 
 
   ngOnInit() {
-/*
-    this.sub = this.route.params.subscribe(params => {
-      this.id = +params['id']; // (+) converts string 'id' to a number
-      this.nome_cliente = params['name'];
-      this.username = params['username'];
-      this.password = params['password'];
-      this.tipo_accesso = params['tipo_accesso'];
-      this.note = params['note'];
-
-
-   });
-  }
-*/
 this.sub = this.route.queryParams.subscribe(params => {
   this.id = +params['id']; // (+) converts string 'id' to a number
   this.nome_cliente = params['name'];
