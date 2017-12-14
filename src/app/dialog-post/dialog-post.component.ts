@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatListModule} from '@angular/material/list';
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
-
+import { ClipboardModule } from 'ngx-clipboard';
 
 
 @Component({
@@ -57,6 +57,9 @@ isDisabled: boolean;
 }
 
 
-
+openSnackBar() {
+  const ref = this.snackBar
+  .open('Il criptogramma è stato successivamente copiato', 'x', { duration: 2000 });
+}
 
 }

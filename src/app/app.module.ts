@@ -47,7 +47,7 @@ import { DialogPostComponent } from './dialog-post/dialog-post.component';
 import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
 import { DecriptaUrlComponent } from './decripta-url/decripta-url.component';
 
-
+import { ClipboardModule } from 'ngx-clipboard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -100,7 +100,8 @@ const routes: Routes = [
     MatListModule,
     MatTooltipModule,
     MatSnackBarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    ClipboardModule
 
 
   ],

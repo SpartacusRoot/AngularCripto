@@ -2,41 +2,42 @@
 <button mat-mini-fab  class="callback-button" color="accent" routerLink='/home'>
   <mat-icon  class="callback-icon" aria-label="Callback icon-button with a arrow icon">navigate_before</mat-icon>
 </button>
-<router-outlet name="criptogramma"></router-outlet>
+
 <mat-card class="main-form" [@fadeIn]="fadeIn">
-    <mat-card-title>
+    <mat-card-title color="primary">
         Crea criptogramma
     </mat-card-title>
+    <mat-card-subtitle>Salva i tuoi dati in modo sicuro creando un criptogramma, ricordati di non inserire una combinazione di nome cliente,username e tipo d' accesso già inserito in precedenza </mat-card-subtitle>
     <div class="example-container">
     <form  #f="ngForm"  class="example-container">
       <mat-form-field>
 
-        <input matInput  [formControl]="name_validator" placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel  #searchTerm >
-        <mat-icon matSuffix>face</mat-icon>
-        <mat-error *ngIf="error">{{error}}</mat-error>
+        <input matInput  [formControl]="name_validators" placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel  #searchTerm required>
+        <mat-icon matSuffix color="primary">face</mat-icon>
       </mat-form-field>
+      <span *ngIf="error"><mat-error>{{error}}</mat-error></span>
 
       <mat-form-field>
-      <input   matInput placeholder="Username" [formControl]="name_validator"  [(ngModel)]="username" name="username" ngModel #searchTerm2>
-      <mat-icon matSuffix>account_circle</mat-icon>
-      <mat-error *ngIf="error">{{error}}</mat-error>
+      <input   matInput placeholder="Username" [formControl]="name_validators"  [(ngModel)]="username" name="username" ngModel #searchTerm2 required>
+      <mat-icon matSuffix color="primary">account_circle</mat-icon>
       </mat-form-field>
+      <span *ngIf="error"><mat-error>{{error}}</mat-error></span>
 
       <mat-form-field>
-        <input matInput [formControl]="name_validator"  placeholder="Tipo d'accesso" [(ngModel)]="access" name="access" ngModel  #searchTerm3>
-        <mat-icon matSuffix>business</mat-icon>
-        <mat-error *ngIf="error">{{error}}</mat-error>
+        <input matInput [formControl]="name_validators"  placeholder="Tipo d'accesso" [(ngModel)]="access" name="access" ngModel  #searchTerm3 required>
+        <mat-icon matSuffix color="primary">business</mat-icon>
       </mat-form-field>
+      <span *ngIf="error"><mat-error>{{error}}</mat-error></span>
 
       <mat-form-field hintLabel="Max 15 characters">
           <input matInput #input placeholder="Enter your password" [type]="hide ? 'password' : 'text'" required maxlength="15" id="fieldName"  [(ngModel)]="password" name="password" ngModel>
-          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+          <mat-icon matSuffix color="primary" (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
           <mat-hint align="end">{{input.value?.length || 0}}/15</mat-hint>
         </mat-form-field>
 
         <mat-form-field>
             <textarea matInput placeholder="Note" name="note" [(ngModel)]="note" matAutosizeMinRows="5" ngModel></textarea>
-            <mat-icon matSuffix>note_add</mat-icon>
+            <mat-icon matSuffix color="primary">note_add</mat-icon>
 
           </mat-form-field>
 

@@ -19,11 +19,16 @@
   #body-wrapper {
     background-image: url('../../assets/screensaver.png');
     background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    height: 650px;
     margin: 0;
     opacity: 0.9;
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    background-size:cover;
+    background-position: center;
+    height: 100%;
   }
 
 

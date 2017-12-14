@@ -2,7 +2,7 @@
 <button mat-mini-fab  class="callback-button" routerLink='/ricerca'>
   <mat-icon  class="callback-icon" aria-label="Callback icon-button with a arrow icon">navigate_before</mat-icon>
 </button>
-<router-outlet name="criptogramma"></router-outlet>
+
 <mat-card class="main-form" [@fadeIn]="fadeIn">
     <div class="example-container">
   <!--  <form #g="ngForm" (ngSubmit)="onSubmit(g.value)" class="example-container"> -->
@@ -10,36 +10,36 @@
 
         <mat-form-field>
             <input matInput placeholder="ID"  readonly="true" name="id" [(ngModel)]="id" ngModel>
-            <mat-icon matSuffix>account_circle</mat-icon>
+            <mat-icon matSuffix color="primary">account_circle</mat-icon>
             </mat-form-field>
       <mat-form-field>
 
-        <input matInput  placeholder="Nome cliente" [formControl]="name_validator" id="fieldName" name="nome_cliente" [(ngModel)]="nome_cliente" ngModel required #searchTerm>
+        <input matInput  placeholder="Nome cliente" [formControl]="name_validator"  name="nome_cliente" [(ngModel)]="nome_cliente" ngModel required #searchTerm>
 
-        <mat-icon matSuffix>face</mat-icon>
+        <mat-icon matSuffix color="primary">face</mat-icon>
         <mat-error *ngIf="error">{{error}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
       <input matInput placeholder="Username"    name="username" [(ngModel)]="username" ngModel #searchTerm2>
-      <mat-icon matSuffix>account_circle</mat-icon>
+      <mat-icon matSuffix color="primary">account_circle</mat-icon>
       <mat-error *ngIf="error">{{error}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
         <input matInput placeholder="Tipo d'accesso"  name="tipo_accesso" [(ngModel)]="tipo_accesso" ngModel #searchTerm3>
-        <mat-icon matSuffix>business</mat-icon>
+        <mat-icon matSuffix color="primary">business</mat-icon>
         <mat-error *ngIf="error">{{error}}</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-          <input matInput placeholder="modifica password"   [type]="hide ? 'password' : 'text'" required id="fieldName" [(ngModel)]="password" name="password"  ngModel>
-          <mat-icon matSuffix >vpn_key</mat-icon>
+          <input matInput placeholder="modifica password"   [type]="hide ? 'password' : 'text'" required  [(ngModel)]="password" name="password"  ngModel>
+          <mat-icon matSuffix color="primary" >vpn_key</mat-icon>
         </mat-form-field>
 
         <mat-form-field>
             <textarea matInput placeholder="Note" name="note" [(ngModel)]="note" ngModel></textarea>
-            <mat-icon matSuffix>note_add</mat-icon>
+            <mat-icon matSuffix color="primary">note_add</mat-icon>
 
           </mat-form-field>
     <button mat-raised-button class="submit-button" type="submit" (click)="openDialog()"  >salva</button>

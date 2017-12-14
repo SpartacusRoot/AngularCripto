@@ -1,4 +1,25 @@
 .crypto {
   word-break: keep-all;
   word-wrap: break-word;
+
+}
+
+
+
+.example-container > * {
+  width: 100%;
+}
+
+
+.button-container {
+
+  display: flex;
+  flex-direction: row;
+  align-content: space-around;
+}
+
+
+.button {
+  flex: 1 1 auto;
+
 }

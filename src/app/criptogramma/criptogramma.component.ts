@@ -50,15 +50,20 @@ export class CriptogrammaComponent implements OnInit {
   error: string;
   hide: boolean;
   maxlength: string;
-  name_validator = new FormControl('', [Validators.required, Validators.email]);
+
+  name_validator = new FormControl('',  [Validators.required, Validators.email]);
+  name_validators = new FormControl('', {
+    validators: Validators.required,
+    updateOn: 'blur'
+  });
     constructor(private http: HttpClient, public dialog: MatDialog) {
     }
 
     openDialog() {
 
       const dialog = this.dialog.open( DialogPostComponent, {
-        height: '500px',
-        width: '700px',
+        height: '700px',
+        width: '1000px',
         data: {
           name: this.name,
           username: this.username,
@@ -107,6 +112,5 @@ export class CriptogrammaComponent implements OnInit {
 
 
   }
-
 
 

@@ -21,27 +21,27 @@
            </button>
            <button mat-button routerLink='/home'><img src="assets/criptoTemeraLogo2.png" width="37" height="37" ></button>
     </mat-toolbar>
-    <mat-toolbar color="primary" class="overflow-toolbar">
+    <mat-toolbar color="accent" class="overflow-toolbar">
         <mat-toolbar-row  >
             <mat-list class="icon-size">
-             <mat-list-item ><a id="menu-button"  color="primary" mat-icon-button routerLink='/criptogramma'><mat-icon matTooltip="Crea Criptogramma" tooltip-position="right">fingerprint</mat-icon></a></mat-list-item>
+             <mat-list-item ><a id="menu-button"  color="primary" mat-icon-button routerLink='/criptogramma'><mat-icon color="primary" matTooltip="Crea Criptogramma"  tooltip-position="right">fingerprint</mat-icon></a></mat-list-item>
              <mat-divider></mat-divider>
-             <mat-list-item><a id="menu-button" color="primary" mat-icon-button  routerLink='/ricerca'><mat-icon class="icon-size" matTooltip="Recupero Dati" tooltip-position="right">account_box</mat-icon></a></mat-list-item>
+             <mat-list-item><a id="menu-button" color="primary" mat-icon-button  routerLink='/ricerca'><mat-icon class="icon-size" color="primary" matTooltip="Recupero Dati"  tooltip-position="right">account_box</mat-icon></a></mat-list-item>
              <mat-divider></mat-divider>
             </mat-list>
             </mat-toolbar-row>
     </mat-toolbar>
-  <mat-sidenav #sidenav mode="over" class="sidenav-open" >
-<mat-toolbar color="primary"><span class="title">Cripto Temera</span>
+  <mat-sidenav #sidenav mode="over" class="sidenav-open"  >
+<mat-toolbar  class="mat-elevation-z8" color="primary"><span class="title">Cripto Temera</span>
 <span class="app-toolbar-filler"></span>
 <mat-icon color="accent" (click)="sidenav.toggle()" class="close-sidenav">
   close
 </mat-icon>
 </mat-toolbar>
     <mat-list>
-      <mat-list-item><a id="menu-button"  color="primary" mat-button routerLink='/criptogramma'><mat-icon >fingerprint</mat-icon>crea criptgramma</a></mat-list-item>
+      <mat-list-item><a id="menu-button"  color="primary"  color="primary" mat-button routerLink='/criptogramma'><mat-icon >fingerprint</mat-icon><span class="menu-list">Crea Criptogramma</span></a></mat-list-item>
         <mat-divider></mat-divider>
-      <mat-list-item><a id="menu-button" color="primary" mat-button  routerLink='/ricerca'><mat-icon>account_box</mat-icon>Recupero dati </a></mat-list-item>
+      <mat-list-item><a id="menu-button" color="primary" mat-button  routerLink='/ricerca'><mat-icon>account_box</mat-icon><span class="menu-list2">Recupera Dati</span> </a></mat-list-item>
         <mat-divider></mat-divider>
     </mat-list>
   </mat-sidenav>

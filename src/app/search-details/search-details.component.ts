@@ -84,18 +84,7 @@ export class SearchDetailsComponent implements OnInit {
     }
 
 
-    onSubmit(searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTerm3: HTMLInputElement): void {
 
-        let params = new HttpParams();
-        params = params.append('nome_cliente', searchTerm.value);
-        params = params.append('username', searchTerm2.value);
-        params = params.append('tipo_accesso', searchTerm3.value);
-        this.http.get('api/check', {params: params}).subscribe(res  => {
-        this.result = res['results'];
-        this.status = res['status'];
-        this.error = res['error'];
-      });
-    }
 
 
 

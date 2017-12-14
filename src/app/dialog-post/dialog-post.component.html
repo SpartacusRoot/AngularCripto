@@ -1,3 +1,4 @@
+
  <h1 matDialogTitle>Salve {{name}}</h1>
 
 <mat-dialog-content>
@@ -26,13 +27,15 @@
            <mat-divider></mat-divider>
 
 
-           <div  *ngIf="passwordCrypted">
-
-          <h3 >Il tuo criptogramma è: </h3>
-          <h4 class="crypto">{{passwordCrypted}}</h4>
-
-          <a mat-raised-button href="http://localhost:3000/decripta?password={{passwordCrypted}}" color="primary">URL LINK</a>
-
+           <div  *ngIf="passwordCrypted" class="example-container">
+              <h3 >Il tuo criptogramma è: </h3>
+<mat-form-field>
+  <textarea matInput matAutosizeMaxRows="3" [(ngModel)]="passwordCrypted" readonly="true"> </textarea>
+</mat-form-field>
+<div class="button-container">
+  <button class="button" mat-raised-button color="accent" ngxClipboard [cbContent]="passwordCrypted" (click)="openSnackBar()">Copia Criptogramma</button>
+  <a mat-raised-button class="button" href="http://localhost:3000/decripta?password={{passwordCrypted}}" color="primary">Decripta</a>
+</div>
           <mat-divider></mat-divider>
 
            </div>

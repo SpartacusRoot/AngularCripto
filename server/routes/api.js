@@ -20,7 +20,7 @@ HMAC_KEY = crypto.randomBytes(32);
 /* GET api listing. */
 router.get('/check', (req, resp) => {
 
-  const checkName = 'SELECT nome_cliente, username, tipo_accesso FROM users WHERE nome_cliente=($1) OR username= ($2) AND tipo_accesso=($3)'
+  const checkName = 'SELECT nome_cliente, username, tipo_accesso FROM users WHERE nome_cliente=($1) AND username= ($2) AND tipo_accesso=($3)'
   const checkValue = [req.query.nome_cliente, req.query.username, req.query.tipo_accesso];
   var client = new pg.Client(connectionString);
   client.connect(function(err) {
@@ -28,6 +28,7 @@ router.get('/check', (req, resp) => {
       return console.error('could not connect to postgres', err);
     }
     client.query(checkName, checkValue,  function(err, res) {
+ console.log(res.rows);
     if(err) {
       return console.error('error running query', err);
       }
@@ -35,14 +36,17 @@ router.get('/check', (req, resp) => {
         res.rows.some(res =>{
        if (res.nome_cliente === req.query.nome_cliente && res.username === req.query.username && res.tipo_accesso === req.query.tipo_accesso) {
           return resp.send({ error: 'la combinazione nome cliente , username e tipo accesso è già esistente', status: true });
+
         }
         else {
           return resp.send({status: false});
+
         }
       });
 
     } else {
       return resp.send({status: false});
+
     }
    client.end();
 });

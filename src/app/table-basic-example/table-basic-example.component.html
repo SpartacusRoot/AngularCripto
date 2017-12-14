@@ -8,29 +8,29 @@
   <form #r="ngForm" class="search-container">
     <mat-form-field>
       <input matInput placeholder="Nome cliente" id="fieldName" name="name" #searchTerm  ngModel>
-        <mat-icon matSuffix>face</mat-icon>
+        <mat-icon matSuffix color="primary">face</mat-icon>
     </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="Tipo d'accesso" name="tipo_accesso" #searchTerm2  ngModel >
-        <mat-icon matSuffix>business</mat-icon>
+        <mat-icon matSuffix color="primary">business</mat-icon>
       </mat-form-field>
     <mat-form-field>
       <input matInput placeholder="criptogramma" name="password" #searchTerm3 ngModel>
-        <mat-icon matSuffix>vpn_key</mat-icon>
+        <mat-icon matSuffix color="primary">vpn_key</mat-icon>
     </mat-form-field>
 
           <button (click)="getName(searchTerm,searchTerm2,searchTerm3  )" mat-raised-button class="submit-button" type="submit" color="accent" >Trova</button>
     </form>
   </mat-card>
-  </div>
 
 
 
-  <div id="body-wrapper2" >
+
+
         <table cellspacing="0">
-          <thead>
-            <tr>
-              <th class="mdl-data-table__cell--non-numeric">
+          <thead >
+            <tr >
+              <th>
                 <div>nome cliente</div>
               </th>
               <th>
@@ -51,7 +51,7 @@
             </tr>
 
           </thead>
-          <tbody>
+          <tbody >
               <tr *ngFor="let res of this.rows">
                   <td>{{ res.nome_cliente }}</td>
                   <td>{{ res.username }}</td>
@@ -60,10 +60,10 @@
                   <td>{{res.note}}</td>
                   <td>
                     <a mat-icon-button (click)="showDetails(res)" >
-                    <mat-icon matTooltip="Modifica i tuoi dati">mode_edit</mat-icon>
+                    <mat-icon color="primary" matTooltip="Modifica i tuoi dati">mode_edit</mat-icon>
                     </a>
                     <a mat-icon-button (click)="showDetails2(res)" >
-                      <mat-icon matTooltip="visualizza i tuoi dati">face</mat-icon>
+                      <mat-icon color="primary" matTooltip="visualizza i tuoi dati">face</mat-icon>
                       </a>
                     </td>
                 </tr>

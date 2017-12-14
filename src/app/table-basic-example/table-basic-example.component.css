@@ -2,16 +2,22 @@
 
 #body-wrapper {
   background-image: url('../../assets/screensaver.png');
-  background-repeat: no-repeat;
-  height: 205px;
-  opacity: 0.9;
-}
-#body-wrapper2 {
-  background-image: url('../../assets/screensaver.png');
   background-repeat: repeat;
-  height: 530px;
+  height: 100%;
   opacity: 0.9;
+  margin: 0;
+  opacity: 0.9;
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-size:cover;
+  background-position: center;
+  height: 100%;
+ overflow: auto;
 }
+
 
 
 .submit-button {
@@ -57,7 +63,7 @@ margin-top: 1%;
 
 
 .callback-button {
-  margin-top: 2%;
+  margin-top: 7%;
   margin-left: 7%;
   background-color: #FFFF00;
 }
@@ -71,15 +77,18 @@ body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.25;
   background-color: #e0e0e0;
+
 }
 table {
-  border: 1px solid #ccc;
+
   border-collapse: collapse;
   margin: 0;
   margin-left: 7%;
   padding: 0;
   width: 90.5%;
   table-layout: fixed;
+
+
 }
 table caption {
   font-size: 1.5em;
@@ -87,7 +96,7 @@ table caption {
 }
 table tr {
   background: #f8f8f8;
-  border: 1px solid #ddd;
+
   padding: .35em;
 }
 table th,
@@ -100,6 +109,10 @@ table th {
   font-size: .85em;
   letter-spacing: .1em;
   text-transform: uppercase;
+}
+
+thead tr {
+  background: #FFFF00;
 }
 @media screen and (max-width: 600px) {
   table {
@@ -145,7 +158,4 @@ table th {
 }
 
 
-.results-tab {
-  height: 400px;
 
-}
