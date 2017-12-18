@@ -62,7 +62,7 @@ export class SearchDetailsComponent implements OnInit {
   results: Object;
   status: boolean;
   error: string;
-  name_validator = new FormControl('', [Validators.required, Validators.email]);
+
 
   constructor(private route: ActivatedRoute,
     private router: Router, private http: HttpClient, public dialog: MatDialog) { }

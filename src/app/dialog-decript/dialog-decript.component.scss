@@ -1,0 +1,31 @@
+
+.form-container {
+  display: flex;
+
+}
+
+
+.flex-children1 {
+ width: 100% !important;
+
+}
+
+.flex-children2 {
+
+  flex: 1 0 auto;
+
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.container > * {
+  width: 100%;
+}
+
+
+
+

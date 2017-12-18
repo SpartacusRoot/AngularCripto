@@ -48,6 +48,7 @@ import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
 import { DecriptaUrlComponent } from './decripta-url/decripta-url.component';
 
 import { ClipboardModule } from 'ngx-clipboard';
+import { DialogDecriptComponent } from './dialog-decript/dialog-decript.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -74,7 +75,8 @@ const routes: Routes = [
     SearchDetailsComponent,
     DialogPostComponent,
     DialogUpdateComponent,
-    DecriptaUrlComponent
+    DecriptaUrlComponent,
+    DialogDecriptComponent
 
 
   ],
@@ -110,6 +112,6 @@ const routes: Routes = [
   //  useClass: CustomReuseStrategy }
 ],
   bootstrap: [AppComponent],
-  entryComponents: [DialogPostComponent, DialogUpdateComponent]
+  entryComponents: [DialogPostComponent, DialogUpdateComponent, DialogDecriptComponent]
 })
 export class AppModule { }

@@ -14,7 +14,7 @@
             </mat-form-field>
       <mat-form-field>
 
-        <input matInput  placeholder="Nome cliente" [formControl]="name_validator"  name="nome_cliente" [(ngModel)]="nome_cliente" ngModel required #searchTerm>
+        <input matInput  placeholder="Nome cliente"   name="nome_cliente" [(ngModel)]="nome_cliente" ngModel  #searchTerm>
 
         <mat-icon matSuffix color="primary">face</mat-icon>
         <mat-error *ngIf="error">{{error}}</mat-error>

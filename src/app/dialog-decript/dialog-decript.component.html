@@ -1,0 +1,20 @@
+<h1 matDialogTitle>Inserisci il tuo criptogramma </h1>
+<mat-card-subtitle>per visualizzare i tuoi dati</mat-card-subtitle>
+<form [formGroup]="myForm"  class="container">
+  <mat-form-field class="container">
+    <input matInput class="flex-children1" formControlName="password" placeholder="inserisci criptogramma" [(ngModel)]="criptogramma" name="criptogramma" required #searchTerm>
+
+
+  </mat-form-field>
+  <div *ngIf="myForm.get('password').status === 'PENDING'">
+    Checking...
+  </div>
+  <div *ngIf="myForm.get('password').status === 'VALID'">
+    😺
+  </div>
+
+ <div *ngIf="myForm.get('password').errors ">
+    😢 Oh noes, this cripto don't exist!
+  </div>
+  <a mat-raised-button class="flex-children2" [disabled]="myForm.invalid" href="http://localhost:3000/decripta?password={{criptogramma}}"  color="primary">Decripta</a>
+</form>
