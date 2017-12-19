@@ -13,8 +13,9 @@
     😺
   </div>
 
- <div *ngIf="myForm.get('password').errors ">
-    😢 Oh noes, this cripto don't exist!
+ <div *ngIf="myForm.get('password').errors && myForm.get('password').dirty">
+    😢 Oh no, il criptogramma inserito non esiste!
   </div>
+
   <a mat-raised-button class="flex-children2" [disabled]="myForm.invalid" href="http://localhost:3000/decripta?password={{criptogramma}}"  color="primary">Decripta</a>
 </form>
