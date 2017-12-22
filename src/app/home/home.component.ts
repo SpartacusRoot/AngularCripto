@@ -19,7 +19,7 @@ import {MatIconModule} from '@angular/material';
   styleUrls: ['./home.component.css'],
   animations: [
     trigger('bounceIn', [transition('* => *', useAnimation(bounceIn))])
-  ],
+  ]
 })
 export class HomeComponent  {
   id: string;

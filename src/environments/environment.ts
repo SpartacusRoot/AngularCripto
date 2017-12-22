@@ -4,5 +4,13 @@
 // The list of which env maps to which file can be found in `.angular-cli.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  firebase: {
+    apiKey: 'AIzaSyC6_p2mAoTIvFTLwqa6YcA4mPz1E7mqXQc',
+    authDomain: 'criptotemera.firebaseapp.com',
+    databaseURL: 'https://criptotemera.firebaseio.com',
+    projectId: 'criptotemera',
+    storageBucket: 'criptotemera.appspot.com',
+    messagingSenderId: '1097818115552'
+  }
 };

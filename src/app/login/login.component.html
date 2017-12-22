@@ -1,0 +1,19 @@
+
+<div *ngIf="this.auth.afAuth.authState | async; let user; else showLogin">
+
+  <app-home></app-home>
+
+
+</div>
+<ng-template #showLogin>
+  <div id="body-wrapper">
+
+  <mat-card class="card" [@bounceIn]="bounceIn">
+  <mat-card-title>Cripto Temera</mat-card-title>
+  <mat-card-actions>
+  <button mat-raised-button color="accent" (click)="login()">Login with <mat-icon class="icon" svgIcon="google"></mat-icon></button>
+  </mat-card-actions>
+</mat-card>
+
+  </div>
+</ng-template>

@@ -84,9 +84,7 @@ router.post('/form',   (req, response) => {
 
      hmac = crypto.createHmac(HMAC_ALGORITHM, HMAC_KEY);
        hmac.update(cipher_text);
-      hmac.update(iv.toString('hex')); // ensure that both the IV and the cipher-text is protected by the HMAC
-     //   console.log(encrypt, cipher_text, iv.toString('hex'));
-        // The IV isn't a secret so it can be stored along side everything else
+      hmac.update(iv.toString('hex'));
         return cipher_text +'$' + iv.toString('hex')+ '$' + hmac.digest('hex');
 
    }

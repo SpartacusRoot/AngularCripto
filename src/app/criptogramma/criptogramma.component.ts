@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -21,9 +21,12 @@ import {MatDialogModule} from '@angular/material';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {MatCardModule} from '@angular/material';
 import { DialogPostComponent } from '../dialog-post/dialog-post.component';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 // animations
 import { trigger, transition, useAnimation } from '@angular/animations';
 import {fadeIn } from 'ng-animate';
+import { Observable } from 'rxjs/Observable';
+import { map, startWith} from 'rxjs/operators';
 
 
 @Component({
@@ -36,7 +39,7 @@ import {fadeIn } from 'ng-animate';
     }))])
   ]
 })
-export class CriptogrammaComponent implements OnInit {
+export class CriptogrammaComponent implements OnInit, AfterViewInit {
 
   fadeIn: any;
   name: string;
@@ -51,12 +54,21 @@ export class CriptogrammaComponent implements OnInit {
   hide: boolean;
   maxlength: string;
 
-  name_validator = new FormControl('',  [Validators.required, Validators.email]);
+  // name_validator = new FormControl('',  [Validators.required, Validators.email]);
   name_validators = new FormControl('', {
     validators: Validators.required,
     updateOn: 'blur'
   });
-    constructor(private http: HttpClient, public dialog: MatDialog) {
+
+  options = [
+    'One',
+    'Two',
+    'Three'
+  ];
+
+  filteredOptions: Observable<string[]>;
+
+    constructor(private http: HttpClient, public dialog: MatDialog, private cd: ChangeDetectorRef) {
     }
 
     openDialog() {
@@ -75,15 +87,25 @@ export class CriptogrammaComponent implements OnInit {
 
     }
 
-
+ngAfterViewInit() {
+  this.cd.detectChanges();
+}
 
     ngOnInit() {
+      this.filteredOptions = this.name_validators.valueChanges
+        .pipe(
+          startWith(null),
+          map(val =>
+            this.filter(val))
+        );
 
     }
 
 
-
-
+    filter(val: string): string[] {
+      return this.options.filter(option =>
+        option.indexOf(val) === 0);
+    }
 
     onSubmit(searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTerm3: HTMLInputElement): void {
 

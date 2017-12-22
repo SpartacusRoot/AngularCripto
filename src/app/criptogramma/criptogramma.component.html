@@ -12,7 +12,12 @@
     <form  #f="ngForm"  class="example-container">
       <mat-form-field>
 
-        <input matInput  [formControl]="name_validators" placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel  #searchTerm required>
+        <input matInput  [formControl]="name_validators" [matAutocomplete]="auto" placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel  #searchTerm required>
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+           {{option}}
+          </mat-option>
+        </mat-autocomplete>
         <mat-icon matSuffix color="primary">face</mat-icon>
       </mat-form-field>
       <span *ngIf="error"><mat-error>{{error}}</mat-error></span>

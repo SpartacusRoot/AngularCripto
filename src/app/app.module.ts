@@ -34,6 +34,7 @@ import {MatTableModule} from '@angular/material';
 import {MatListModule} from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 // component
 import { TableBasicExampleComponent } from './table-basic-example/table-basic-example.component';
 import { DecryptComponent } from './decrypt/decrypt.component';
@@ -49,15 +50,24 @@ import { DecriptaUrlComponent } from './decripta-url/decripta-url.component';
 
 import { ClipboardModule } from 'ngx-clipboard';
 import { DialogDecriptComponent } from './dialog-decript/dialog-decript.component';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
+import { environment } from '../environments/environment';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './login/auth.service';
+import { AuthguardService } from './authguard.service';
+
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  {path: 'edit', component: SearchDetailsComponent, pathMatch: 'prefix', data: {page: 'modifica'} },
-  {path: 'ricerca', component: TableBasicExampleComponent, pathMatch: 'prefix', data: {page: 'ricerca'} },
-  {path: 'decrypt', component:  DecryptComponent, pathMatch: 'prefix', data: {page: 'decript'} },
-  {path: 'criptogramma', component: CriptogrammaComponent, data: {page: 'criptogramma' } },
-  {path: 'decripta', component: DecriptaUrlComponent, pathMatch: 'prefix', data: {page: 'decripta'}}
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthguardService] },
+  {path: 'edit', component: SearchDetailsComponent, pathMatch: 'prefix', data: {page: 'modifica'},  canActivate: [AuthguardService] },
+  {path: 'ricerca', component: TableBasicExampleComponent, pathMatch: 'prefix', data: {page: 'ricerca'}, canActivate: [AuthguardService] },
+  {path: 'decrypt', component:  DecryptComponent, pathMatch: 'prefix', data: {page: 'decript'}, canActivate: [AuthguardService] },
+  {path: 'criptogramma', component: CriptogrammaComponent, data: {page: 'criptogramma' }, canActivate: [AuthguardService] },
+  {path: 'decripta', component: DecriptaUrlComponent, pathMatch: 'prefix', data: {page: 'decripta'}, canActivate: [AuthguardService] }
 
 
 ];
@@ -76,7 +86,8 @@ const routes: Routes = [
     DialogPostComponent,
     DialogUpdateComponent,
     DecriptaUrlComponent,
-    DialogDecriptComponent
+    DialogDecriptComponent,
+    LoginComponent
 
 
   ],
@@ -103,11 +114,16 @@ const routes: Routes = [
     MatTooltipModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
-    ClipboardModule
+    MatAutocompleteModule,
+    ClipboardModule,
+// firebase Auth
+AngularFireModule.initializeApp(environment.firebase),
+AngularFireAuthModule
 
 
   ],
-  providers: [ // {
+  providers: [ AuthService, AuthguardService
+    // {
   //  provide: RouteReuseStrategy,
   //  useClass: CustomReuseStrategy }
 ],
