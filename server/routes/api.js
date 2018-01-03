@@ -13,6 +13,20 @@ const IV_LENGTH = 16;
 HMAC_KEY = crypto.randomBytes(32);
 
 
+router.get('/autocomplete', (req,res) => {
+  const checkPassword = 'SELECT id,nome_cliente, username, tipo_accesso FROM users LIMIT 5 OFFSET 140 ';
+
+  var client = new pg.Client(connectionString);
+  client.connect(function(err) {
+    client.query(checkPassword, function(req , result) {
+    json = result.rows;
+      client.end();
+       console.log('JSON-result:', json);
+       res.json(json);
+      });
+    });
+});
+
 router.get('/checkpassword', (req,res) =>{
   const checkPassword = 'SELECT password FROM users WHERE password=($1)';
   const checkValue = [req.query.password];

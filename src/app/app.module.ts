@@ -57,6 +57,7 @@ import { environment } from '../environments/environment';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './login/auth.service';
 import { AuthguardService } from './authguard.service';
+import { AutocompleteService } from './service/autocomplete.service';
 
 
 const routes: Routes = [
@@ -122,7 +123,7 @@ AngularFireAuthModule
 
 
   ],
-  providers: [ AuthService, AuthguardService
+  providers: [ AuthService, AuthguardService, AutocompleteService
     // {
   //  provide: RouteReuseStrategy,
   //  useClass: CustomReuseStrategy }

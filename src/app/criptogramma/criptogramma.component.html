@@ -11,11 +11,10 @@
     <div class="example-container">
     <form  #f="ngForm"  class="example-container">
       <mat-form-field>
-
-        <input matInput  [formControl]="name_validators" [matAutocomplete]="auto" placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel  #searchTerm required>
+        <input matInput  [formControl]="myControl" [matAutocomplete]="auto" placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel  #searchTerm required>
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-           {{option}}
+          <mat-option  *ngFor="let res of filteredOptions | async" [value]="res.nome_cliente">
+           {{res.nome_cliente}}
           </mat-option>
         </mat-autocomplete>
         <mat-icon matSuffix color="primary">face</mat-icon>
@@ -23,13 +22,23 @@
       <span *ngIf="error"><mat-error>{{error}}</mat-error></span>
 
       <mat-form-field>
-      <input   matInput placeholder="Username" [formControl]="name_validators"  [(ngModel)]="username" name="username" ngModel #searchTerm2 required>
+      <input   matInput placeholder="Username" [formControl]="usernameControl" [matAutocomplete]="autoUser" [(ngModel)]="username" name="username" ngModel #searchTerm2 required>
+      <mat-autocomplete #autoUser="matAutocomplete">
+        <mat-option  *ngFor="let res of filteredOptions | async" [value]="res.username">
+         {{res.username}}
+        </mat-option>
+      </mat-autocomplete>
       <mat-icon matSuffix color="primary">account_circle</mat-icon>
       </mat-form-field>
       <span *ngIf="error"><mat-error>{{error}}</mat-error></span>
 
       <mat-form-field>
-        <input matInput [formControl]="name_validators"  placeholder="Tipo d'accesso" [(ngModel)]="access" name="access" ngModel  #searchTerm3 required>
+        <input matInput [formControl]="tipo_accessoControl" [matAutocomplete]="autoAccess" placeholder="Tipo d'accesso" [(ngModel)]="access" name="access" ngModel  #searchTerm3 required>
+        <mat-autocomplete #autoAccess="matAutocomplete">
+          <mat-option  *ngFor="let res of filteredOptions | async" [value]="res.tipo_accesso">
+           {{res.tipo_accesso}}
+          </mat-option>
+        </mat-autocomplete>
         <mat-icon matSuffix color="primary">business</mat-icon>
       </mat-form-field>
       <span *ngIf="error"><mat-error>{{error}}</mat-error></span>

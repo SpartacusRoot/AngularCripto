@@ -26,7 +26,10 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { trigger, transition, useAnimation } from '@angular/animations';
 import {fadeIn } from 'ng-animate';
 import { Observable } from 'rxjs/Observable';
-import { map, startWith} from 'rxjs/operators';
+import { map, startWith, filter, switchMap, debounceTime } from 'rxjs/operators';
+import { AutocompleteService } from '../service/autocomplete.service';
+import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
+import { ItemsResponse } from '../home/itemResponse';
 
 
 @Component({
@@ -53,23 +56,58 @@ export class CriptogrammaComponent implements OnInit, AfterViewInit {
   error: string;
   hide: boolean;
   maxlength: string;
+  searchResult: any;
+  nome_cliente: string;
 
+filteredOptions: Observable<any>;
   // name_validator = new FormControl('',  [Validators.required, Validators.email]);
   name_validators = new FormControl('', {
     validators: Validators.required,
     updateOn: 'blur'
   });
 
-  options = [
-    'One',
-    'Two',
-    'Three'
-  ];
+  myControl: FormControl = new FormControl();
+  usernameControl: FormControl = new FormControl();
+  tipo_accessoControl: FormControl = new FormControl();
 
-  filteredOptions: Observable<string[]>;
 
-    constructor(private http: HttpClient, public dialog: MatDialog, private cd: ChangeDetectorRef) {
+
+
+    constructor(private http: HttpClient, public dialog: MatDialog,
+      private cd: ChangeDetectorRef, private autoCompleteService: AutocompleteService) {
+// autocomplete nome_cliente
+        this.filteredOptions = this.myControl.valueChanges
+        .pipe(
+          startWith(null),
+          debounceTime(500),
+          distinctUntilChanged(),
+          switchMap(val => {
+            return this.filter(val || '');
+          })
+        );
+        // autocomplete username
+        this.filteredOptions = this.usernameControl.valueChanges
+        .pipe(
+          startWith(null),
+          debounceTime(500),
+          distinctUntilChanged(),
+          switchMap(val => {
+            return this.filterUsername(val || '');
+          })
+        );
+        // autocomplete tipo_accesso
+        this.filteredOptions = this.tipo_accessoControl.valueChanges
+        .pipe(
+          startWith(null),
+          debounceTime(500),
+          distinctUntilChanged(),
+          switchMap(val => {
+            return this.filterTipoAccess(val || '');
+          })
+        );
     }
+
+
 
     openDialog() {
 
@@ -92,20 +130,39 @@ ngAfterViewInit() {
 }
 
     ngOnInit() {
-      this.filteredOptions = this.name_validators.valueChanges
-        .pipe(
-          startWith(null),
-          map(val =>
-            this.filter(val))
-        );
+
 
     }
 
 
-    filter(val: string): string[] {
-      return this.options.filter(option =>
-        option.indexOf(val) === 0);
+// filter nome_cliente
+    filter(val: string): Observable<any[]> {
+      return this.autoCompleteService.search_autocomplete()
+      .pipe(
+        map(response => response.filter(res => {
+          return res.nome_cliente.toLowerCase().indexOf(val.toLowerCase()) === 0;
+        }))
+      );
     }
+// filter username
+filterUsername(val: string): Observable<any[]> {
+  return this.autoCompleteService.search_autocomplete()
+  .pipe(
+    map(response => response.filter(res => {
+      return res.username.toLowerCase().indexOf(val.toLowerCase()) === 0;
+    }))
+  );
+}
+// filter tipo_accesso
+filterTipoAccess(val: string): Observable<any[]> {
+  return this.autoCompleteService.search_autocomplete()
+  .pipe(
+    map(response => response.filter(res => {
+      return res.tipo_accesso.toLowerCase().indexOf(val.toLowerCase()) === 0;
+    }))
+  );
+}
+
 
     onSubmit(searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTerm3: HTMLInputElement): void {
 
