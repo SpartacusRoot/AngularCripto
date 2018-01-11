@@ -3,7 +3,14 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const bodyParser = require('body-parser');
+const { Pool } = require('pg')
+const Router = require('express-promise-router')
 
+module.exports = {
+  query: (text, params) => pool.query(text, params)
+}
+
+const router = new Router()
 // Get our API routes
 const api = require('./server/routes/api');
 

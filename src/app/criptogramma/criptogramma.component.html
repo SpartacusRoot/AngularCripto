@@ -22,12 +22,8 @@
       <span *ngIf="error"><mat-error>{{error}}</mat-error></span>
 
       <mat-form-field>
-      <input   matInput placeholder="Username" [formControl]="usernameControl" [matAutocomplete]="autoUser" [(ngModel)]="username" name="username" ngModel #searchTerm2 required>
-      <mat-autocomplete #autoUser="matAutocomplete">
-        <mat-option  *ngFor="let res of filteredOptions | async" [value]="res.username">
-         {{res.username}}
-        </mat-option>
-      </mat-autocomplete>
+      <input   matInput placeholder="Username" [formControl]="usernameControl"  [(ngModel)]="username" name="username" ngModel #searchTerm2 required>
+
       <mat-icon matSuffix color="primary">account_circle</mat-icon>
       </mat-form-field>
       <span *ngIf="error"><mat-error>{{error}}</mat-error></span>

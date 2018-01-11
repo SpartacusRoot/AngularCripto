@@ -30,6 +30,7 @@ import { map, startWith, filter, switchMap, debounceTime } from 'rxjs/operators'
 import { AutocompleteService } from '../service/autocomplete.service';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { ItemsResponse } from '../home/itemResponse';
+import { distinct } from 'rxjs/operators/distinct';
 
 
 @Component({
@@ -75,39 +76,23 @@ filteredOptions: Observable<any>;
 
     constructor(private http: HttpClient, public dialog: MatDialog,
       private cd: ChangeDetectorRef, private autoCompleteService: AutocompleteService) {
-// autocomplete nome_cliente
-        this.filteredOptions = this.myControl.valueChanges
-        .pipe(
-          startWith(null),
-          debounceTime(500),
-          distinctUntilChanged(),
-          switchMap(val => {
-            return this.filter(val || '');
-          })
-        );
-        // autocomplete username
-        this.filteredOptions = this.usernameControl.valueChanges
-        .pipe(
-          startWith(null),
-          debounceTime(500),
-          distinctUntilChanged(),
-          switchMap(val => {
-            return this.filterUsername(val || '');
-          })
-        );
+
+
+
+
         // autocomplete tipo_accesso
         this.filteredOptions = this.tipo_accessoControl.valueChanges
         .pipe(
           startWith(null),
-          debounceTime(500),
+          debounceTime(200),
           distinctUntilChanged(),
           switchMap(val => {
             return this.filterTipoAccess(val || '');
           })
         );
-    }
 
 
+  }
 
     openDialog() {
 
@@ -130,34 +115,37 @@ ngAfterViewInit() {
 }
 
     ngOnInit() {
-
+      // autocomplete nome_cliente
+      this.filteredOptions = this.myControl.valueChanges
+      .pipe(
+        startWith(null),
+        debounceTime(200),
+        distinctUntilChanged(),
+        switchMap(val => {
+          return this.filterNome(val || '');
+        })
+      );
 
     }
 
 
 // filter nome_cliente
-    filter(val: string): Observable<any[]> {
+    filterNome(val: string): Observable<any[]> {
       return this.autoCompleteService.search_autocomplete()
       .pipe(
         map(response => response.filter(res => {
-          return res.nome_cliente.toLowerCase().indexOf(val.toLowerCase()) === 0;
-        }))
+          return res.nome_cliente
+          .toLowerCase().indexOf(val.toLowerCase()) === 0;
+        })),
       );
     }
-// filter username
-filterUsername(val: string): Observable<any[]> {
-  return this.autoCompleteService.search_autocomplete()
-  .pipe(
-    map(response => response.filter(res => {
-      return res.username.toLowerCase().indexOf(val.toLowerCase()) === 0;
-    }))
-  );
-}
+
 // filter tipo_accesso
 filterTipoAccess(val: string): Observable<any[]> {
-  return this.autoCompleteService.search_autocomplete()
+  return this.autoCompleteService.search_autocompleteAccess(this.myControl.value)
   .pipe(
-    map(response => response.filter(res => {
+    map(response => response
+      .filter(res => {
       return res.tipo_accesso.toLowerCase().indexOf(val.toLowerCase()) === 0;
     }))
   );

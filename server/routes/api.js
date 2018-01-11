@@ -14,11 +14,28 @@ HMAC_KEY = crypto.randomBytes(32);
 
 
 router.get('/autocomplete', (req,res) => {
-  const checkPassword = 'SELECT id,nome_cliente, username, tipo_accesso FROM users LIMIT 5 OFFSET 140 ';
-
+  // test autocomplete with new database refer autocompleteTest
+ // const autocomplete = 'SELECT id,nome_cliente, username, tipo_accesso FROM users LIMIT 5 OFFSET 140 ';
+  const autocompleteTest ='SELECT clienti.nome_cliente, usernames.username,tipo_accesso.tipo_accesso FROM clienti JOIN usernames ON clienti.id = usernames.id JOIN tipo_accesso ON usernames.id_username = tipo_accesso.id_username JOIN password ON tipo_accesso.id_tipo_accesso = password.id_tipo_accesso';
   var client = new pg.Client(connectionString);
   client.connect(function(err) {
-    client.query(checkPassword, function(req , result) {
+    client.query(autocompleteTest, function(req , result) {
+    json = result.rows;
+      client.end();
+       console.log('JSON-result:', json);
+       res.json(json);
+      });
+    });
+});
+/*
+router.get('/autocompleteAccesso', (req,res) => {
+  // test autocomplete with new database refer autocompleteTest
+  const autocomplete = 'SELECT id,nome_cliente, username, tipo_accesso FROM users LIMIT 5 OFFSET 140 ';
+  const autocompleteTest =' SELECT * FROM clienti JOIN tipo_accesso ON clienti.id_cliente = tipo_accesso.id_cliente WHERE nome_cliente=($1)';
+  var value = [req.query.tipo_accesso]
+  var client = new pg.Client(connectionString);
+  client.connect(function(err) {
+    client.query(autocompleteTest, function(req , result) {
     json = result.rows;
       client.end();
        console.log('JSON-result:', json);
@@ -27,27 +44,16 @@ router.get('/autocomplete', (req,res) => {
     });
 });
 
-router.get('/checkpassword', (req,res) =>{
-  const checkPassword = 'SELECT password FROM users WHERE password=($1)';
-  const checkValue = [req.query.password];
-  var client = new pg.Client(connectionString);
-  client.connect(function(err) {
-    client.query(checkPassword, checkValue,  function(req , result) {
-    json = result.rows;
-      client.end();
-       console.log('JSON-result:', json);
-       res.send(json);
-      });
-    });
 
-});
+/*
+
 
 
 
 /* GET api listing. */
 router.get('/check', (req, resp) => {
-
-  const checkName = 'SELECT nome_cliente, username, tipo_accesso FROM users WHERE nome_cliente=($1) AND username= ($2) AND tipo_accesso=($3)'
+  const checkName = 'SELECT clienti.nome_cliente, usernames.username,tipo_accesso.tipo_accesso FROM clienti JOIN  usernames ON clienti.id = usernames.id JOIN tipo_accesso ON usernames.id_username = tipo_accesso.id_username JOIN password ON tipo_accesso.id_tipo_accesso = password.id_tipo_accesso WHERE nome_cliente=($1) AND username= ($2) AND tipo_accesso=($3)';
+ // const checkName = 'SELECT nome_cliente, username, tipo_accesso FROM users WHERE nome_cliente=($1) AND username= ($2) AND tipo_accesso=($3)'
   const checkValue = [req.query.nome_cliente, req.query.username, req.query.tipo_accesso];
   var client = new pg.Client(connectionString);
   client.connect(function(err) {
@@ -55,7 +61,7 @@ router.get('/check', (req, resp) => {
       return console.error('could not connect to postgres', err);
     }
     client.query(checkName, checkValue,  function(err, res) {
- console.log(res.rows);
+ // console.log(res.rows);
     if(err) {
       return console.error('error running query', err);
       }
@@ -82,7 +88,66 @@ router.get('/check', (req, resp) => {
 
 });
 
-router.post('/form',   (req, response) => {
+router.post('/form', async (req,res) => {
+  var client = new pg.Client(connectionString);
+  function encrypt(text) {
+    let iv = crypto.randomBytes(IV_LENGTH);
+    var cipher_text;
+    var hmac;
+    var encryptor;
+    encryptor = crypto.createCipheriv(algorithm, key, new Buffer(iv));
+    encryptor.setEncoding('hex');
+    encryptor.write(text);
+    encryptor.end();
+    cipher_text = encryptor.read();
+     hmac = crypto.createHmac(HMAC_ALGORITHM, HMAC_KEY);
+       hmac.update(cipher_text);
+      hmac.update(iv.toString('hex'));
+        return cipher_text +'$' + iv.toString('hex')+ '$' + hmac.digest('hex');
+   }
+
+var userModel = {};
+ userModel.name = req.body.name;
+ userModel.password = req.body.password;
+ userModel.access = req.body.access;
+ userModel.note = req.body.note;
+ userModel.username  = req.body.username;
+
+ encryptedString = encrypt(userModel.password);
+   console.log(encryptedString);
+   userModel.password = encryptedString;
+let text= [];
+
+  (async () => {
+    try {
+      var client = new Client(connectionString)
+      await client.connect();
+  } catch (error) {
+      console.log('A client pool error occurred:', error);
+      return error;
+  }
+    try {
+      await client.query('BEGIN')
+      userModel.name  = await client.query('INSERT INTO clienti(nome_cliente) VALUES($1) RETURNING id', [req.body.name])
+      userModel.username = await client.query('INSERT INTO usernames(username,id) VALUES ($1,$2) RETURNING id_username;',[req.body.username,userModel.name.rows[0].id])
+      userModel.access = await client.query('INSERT INTO tipo_accesso(tipo_accesso,id_username) VALUES ($1,$2) RETURNING id_tipo_accesso;',[req.body.access,userModel.username.rows[0].id_username])
+      userModel.pass = await client.query('INSERT INTO password(password, note,id_tipo_accesso) VALUES ($1, $2, $3) RETURNING password;',[userModel.password,  userModel.note, userModel.access.rows[0].id_tipo_accesso])
+      await client.query('COMMIT')
+    } catch (e) {
+      await client.query('ROLLBACK')
+      throw e
+    } finally {
+
+     await client.end()
+
+    }
+})().catch(e => console.error(e.stack))
+res.send({passwordCrypted:userModel.password});
+
+
+});
+
+router.post('/form1',   (req, response) => {
 
   function encrypt(text) {
     let iv = crypto.randomBytes(IV_LENGTH);
@@ -125,8 +190,9 @@ let text= [];
 
 
   const values = [req.body.name, req.body.username, userModel.access,  userModel.password,  userModel.note];
+       // relation database post from criptogramma form, refer to text1
        text = 'INSERT INTO users(nome_cliente, username, tipo_accesso, password, note) VALUES($1, $2, $3, $4, $5) RETURNING *'
-          var client = new pg.Client(connectionString);
+       var client = new pg.Client(connectionString);
           client.connect(function(err) {
             if(err) {
               return console.error('could not connect to postgres', err);
@@ -232,7 +298,8 @@ json = result;
 
   router.get('/search/',  (req, res, next) => {
     var searchRes = {};
-    let searchResult = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users where TRUE=TRUE';
+    let searchResult = 'SELECT * FROM clienti JOIN usernames ON clienti.id = usernames.id JOIN tipo_accesso ON usernames.id_username = tipo_accesso.id_username JOIN password ON tipo_accesso.id_tipo_accesso = password.id_tipo_accesso WHERE TRUE=TRUE';
+    let searchResult1 = 'SELECT id,nome_cliente, username, password, note, tipo_accesso  FROM users where TRUE=TRUE';
     let queryParams = [];
 
  /*   if(req.query.nome_cliente && req.query.nome_cliente != ''){
