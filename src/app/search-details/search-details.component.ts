@@ -50,6 +50,9 @@ export class SearchDetailsComponent implements OnInit {
   fadeIn: any;
   hide= true;
   id: number;
+  id_username: number;
+  id_tipo_accesso: number;
+  id_password: number;
   nome_cliente: string;
   name: string;
   access: string;
@@ -74,6 +77,9 @@ export class SearchDetailsComponent implements OnInit {
         width: '550px',
         data: {
           id: this.id,
+          id_username: this.id_username,
+          id_tipo_accesso: this.id_tipo_accesso,
+          id_password: this.id_password,
           nome_cliente: this.nome_cliente,
           username: this.username,
           password: this.password,
@@ -91,6 +97,9 @@ export class SearchDetailsComponent implements OnInit {
   ngOnInit() {
 this.sub = this.route.queryParams.subscribe(params => {
   this.id = +params['id']; // (+) converts string 'id' to a number
+  this.id_username = +params['id_username'];
+  this.id_tipo_accesso = +params['id_tipo_accesso'];
+  this.id_password = +params['id_password'];
   this.nome_cliente = params['name'];
   this.username = params['username'];
   this.password = params['password'];

@@ -5,4 +5,7 @@ export interface ItemsResponse {
   note: string;
   tipo_accesso: string;
   id: number;
+  id_username: string;
+  id_tipo_accesso: string;
+  id_password: string;
  }

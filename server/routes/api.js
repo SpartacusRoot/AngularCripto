@@ -209,7 +209,7 @@ let text= [];
 
   });
 
- router.put('/update',   (req, res) => {
+ router.put('/update1',   (req, res) => {
 
 
   var userModel = {};
@@ -268,6 +268,126 @@ function encrypt(text) {
 res.send({tipo_accesso:req.body.access});
 
   });
+
+
+  router.put('/update',   (req, res) => {
+
+    var client = new pg.Client(connectionString);
+    var userModel = {};
+     userModel.nome_cliente = req.body.nome_cliente;
+     userModel.password = req.body.password;
+     userModel.tipo_accesso = req.query.tipo_accesso;
+     userModel.note = req.body.note;
+     userModel.username  = req.body.username;
+     userModel.id = req.body.id;
+     userModel.id_username= req.body.id_username;
+     userModel.id_password = req.body.id_password;
+     userModel.id_tipo_accesso = req.body.id_tipo_accesso;
+
+  function encrypt(text) {
+        let iv = crypto.randomBytes(IV_LENGTH);
+        var cipher_text;
+        var hmac;
+        var encryptor;
+
+        encryptor = crypto.createCipheriv(algorithm, key, new Buffer(iv));
+        encryptor.setEncoding('hex');
+        encryptor.write(text);
+        encryptor.end();
+        cipher_text = encryptor.read();
+
+            return cipher_text + "$" +iv.toString('hex');
+            console.log(encrypt);
+       }
+       var  encryptedString = encrypt(userModel.password);
+      console.log('nome '+userModel.name, 'note '+ userModel.note, 'id'+ userModel.id, 'accesso '+ userModel.tipo_accesso);
+       console.log('pass ' + encryptedString);
+
+        userModel.password = encryptedString;
+
+/*
+       const  text  = 'WITH up1 AS ( UPDATE clienti SET nome_cliente=($1) WHERE id=($2) ), up2 AS( UPDATE usernames SET username=($3) WHERE id=($4) ),up3 AS( UPDATE tipo_accesso SET tipo_accesso=($5) WHERE id_tipo_accesso=($6)) UPDATE password SET password=($7),note=($8) WHERE id_tipo_accesso=($9);'
+       const  value  = [req.body.nome_cliente,req.body.id,
+          req.body.username,
+          req.body.id,
+       req.body.tipo_accesso,
+       req.body.id_tipo_accesso,
+        req.body.password,
+         req.body.note,
+         req.id_tipo_accesso
+          ];
+*/
+       (async () => {
+        try {
+          var client = new Client(connectionString);
+          await client.connect();
+      } catch (error) {
+          console.log('A client pool error occurred:', error);
+          return error;
+      }
+      try {
+        await client.query('BEGIN')
+        userModel.nome_cliente = await client.query('UPDATE clienti SET nome_cliente=($1) WHERE id=($2)', [userModel.nome_cliente,req.body.id])
+        userModel.username = await client.query('UPDATE usernames SET username=($1) WHERE id_username=($2)', [req.query.username,userModel.id_username])
+        userModel.tipo_accesso = await client.query('UPDATE tipo_accesso SET tipo_accesso=($1) WHERE id_tipo_accesso=($2)', [userModel.tipo_accesso,userModel.id_tipo_accesso])
+        userModel.password = await client.query('UPDATE password SET password=($1),note=($2) WHERE id_password=($3)', [userModel.password,userModel.note,userModel.id_password])
+        console.log('id '+userModel.id, 'id_tipo_accesso '+ userModel.id_tipo_accesso, 'username '+ req.query.username , 'tipo_accesso '+
+        userModel.tipo_accesso, 'note ' + userModel.note, 'pass '+ userModel.password, 'id_password ' + userModel.id_password)
+        await client.query('COMMIT')
+      } catch (e) {
+        await client.query('ROLLBACK')
+        throw e
+      } finally {
+
+         await client.end()
+console.log(userModel, 'risultato update')
+        }
+    })().catch(e => console.error(e.stack))
+//res.send({dati:userModel});
+/*
+       if(req.body.password.length <= 16){
+        text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3), password=($4), note=($5)   WHERE id=($6) '
+        values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso,  userModel.password,  userModel.note, userModel.id ];
+       } else {
+         text = 'UPDATE users SET nome_cliente =($1), username=($2), tipo_accesso=($3),  note=($4)   WHERE id=($5) '
+        values = [req.body.nome_cliente, req.body.username, req.body.tipo_accesso, userModel.note, userModel.id ];
+       }
+
+
+      var client = new pg.Client(connectionString);
+      text = 'WITH up1 AS ( UPDATE clienti SET nome_cliente=($1) WHERE id=($2) ), up2 AS( UPDATE usernames SET username=($3) WHERE id=($4) ),up3 AS( UPDATE tipo_accesso SET tipo_accesso=($5) WHERE id_tipo_accesso=($6)) UPDATE password SET password=($7),note=($8) WHERE id_tipo_accesso=($9);'
+      value = [req.body.nome_cliente,req.body.id,
+               req.body.username,
+               req.body.id,
+            req.body.tipo_accesso,
+            req.body.id_tipo_accesso,
+             req.body.password,
+              req.body.note,
+              req.id_tipo_accesso
+               ];
+      client.connect(function(err) {
+        if(err) {
+          return console.error('could not connect to postgres', err);
+        }
+        client.query(text, value, function(err, res) {
+
+          if(err) {
+            return console.error('error running query', err);
+          } else {
+            console.log('ddd'+ res.rows[0])
+          }
+
+          client.end();
+        });
+
+
+      });
+
+
+
+  res.send({dati:req.body.id});
+*/
+    });
 
 
 

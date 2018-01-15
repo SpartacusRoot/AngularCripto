@@ -46,12 +46,16 @@ ngOnInit() {
 showDetails(res: ItemsResponse) {
   this.selectedRes = res;
   const resId = res ? res.id : null;
+  const resIdUsername = res ? res.id_username : null;
+  const resIdAccesso = res ? res.id_tipo_accesso : null;
+  const resIdPassword = res ? res.id_password : null;
   const resName = res ? res.nome_cliente : null;
   const resUsername = res ? res.username : null;
   const resPassword = res ? res.password : null;
   const resNote = res ? res.note : null;
   const resAccesso = res ? res.tipo_accesso : null;
-  this.router.navigate(['edit'], { queryParams: { id: resId, name: resName, username: resUsername,
+  this.router.navigate(['edit'], { queryParams: { id: resId, id_username: resIdUsername,
+     id_tipo_accesso: resIdAccesso, id_password: resIdPassword, name: resName, username: resUsername,
     password: resPassword, note: resNote, tipo_accesso: resAccesso} }   );
     }
 
@@ -77,7 +81,7 @@ getName  (searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTer
     params = params.append('password', searchTerm3.value);
     this.http.get('api/search', {params: params}).subscribe(data1 => {
       this.rows = data1;
-      console.log(this.rows);
+      console.log('result query', this.rows);
 
         });
 
