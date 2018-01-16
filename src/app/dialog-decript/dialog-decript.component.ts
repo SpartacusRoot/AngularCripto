@@ -8,6 +8,10 @@ import { ItemsResponse } from '../home/itemResponse';
 import { map, filter, debounceTime} from 'rxjs/operators';
 import { Observable } from 'rxjs/Rx';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
+import { Router } from '@angular/router';
+import { MatDialogRef } from '@angular/material';
+import { AppComponent } from '../app.component';
+
 
 
 
@@ -23,7 +27,7 @@ criptogramma: string;
 res: Object;
 password: string;
 id: string;
-  constructor(private http: HttpClient, private fb: FormBuilder) { }
+  constructor(private http: HttpClient, private fb: FormBuilder, private router: Router, public dialogRef: MatDialogRef<AppComponent>) { }
 
 
 
@@ -39,18 +43,14 @@ if (res.length !== 0) {
   return { passwordExist: true };
 }
    });
-
-
-
-//  .subscribe(res => {
-//
-// console.log(res);
-//  });
-
 }
 
-
-
+sendData(searchTerm: HTMLInputElement) {
+console.log(searchTerm);
+this.http.post('api/decrypta', searchTerm);
+this.router.navigate(['decripta'], { queryParams: {password: searchTerm}});
+this.dialogRef.close();
+}
 
   ngOnInit() {
 
@@ -58,11 +58,8 @@ if (res.length !== 0) {
 password: ['',
 Validators.required, this.asyncValidator.bind(this)
 ]
-
-    });
-
-
-  }
+});
+}
 
 
 

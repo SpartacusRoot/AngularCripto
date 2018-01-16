@@ -11,7 +11,7 @@
     <div class="example-container">
     <form  #f="ngForm"  class="example-container">
       <mat-form-field>
-        <input matInput  [formControl]="myControl" [matAutocomplete]="auto" placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel  #searchTerm required>
+        <input matInput  [formControl]="myControl"  [matAutocomplete]="auto" placeholder="Nome cliente" id="fieldName" [(ngModel)]="name" name="name" ngModel  #searchTerm required>
         <mat-autocomplete #auto="matAutocomplete">
           <mat-option  *ngFor="let res of filteredOptions | async" [value]="res.nome_cliente">
            {{res.nome_cliente}}
@@ -31,7 +31,7 @@
       <mat-form-field>
         <input matInput [formControl]="tipo_accessoControl" [matAutocomplete]="autoAccess" placeholder="Tipo d'accesso" [(ngModel)]="access" name="access" ngModel  #searchTerm3 required>
         <mat-autocomplete #autoAccess="matAutocomplete">
-          <mat-option  *ngFor="let res of filteredOptions | async" [value]="res.tipo_accesso">
+          <mat-option  *ngFor="let res of filteredOptions1 | async" [value]="res.tipo_accesso">
            {{res.tipo_accesso}}
           </mat-option>
         </mat-autocomplete>

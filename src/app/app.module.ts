@@ -71,9 +71,9 @@ const routes: Routes = [
   {path: 'ricerca', component: TableBasicExampleComponent, pathMatch: 'prefix', data: {page: 'ricerca'}, canActivate: [AuthguardService] },
   {path: 'decrypt', component:  DecryptComponent, pathMatch: 'prefix', data: {page: 'decript'}, canActivate: [AuthguardService] },
   {path: 'criptogramma', component: CriptogrammaComponent, data: {page: 'criptogramma' }, canActivate: [AuthguardService] },
-  {path: 'decripta', component: DecriptaUrlComponent, pathMatch: 'prefix', data: {page: 'decripta'}, canActivate: [AuthguardService] }
-
-
+  {path: 'decripta', component: DecriptaUrlComponent, pathMatch: 'prefix', data: {page: 'decripta'}, canActivate: [AuthguardService] },
+  {path: 'dialog-decript', component: DialogDecriptComponent, data: {page: 'dialog-decript'}, canActivate: [AuthguardService] },
+  {path: 'app', component: AppComponent, canActivate: [AuthguardService]}
 ];
 
 

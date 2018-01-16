@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, AfterViewInit, AfterViewChecked } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -43,7 +43,7 @@ import { distinct } from 'rxjs/operators/distinct';
     }))])
   ]
 })
-export class CriptogrammaComponent implements OnInit, AfterViewInit {
+export class CriptogrammaComponent implements OnInit, AfterViewInit, AfterViewChecked {
 
   fadeIn: any;
   name: string;
@@ -61,6 +61,7 @@ export class CriptogrammaComponent implements OnInit, AfterViewInit {
   nome_cliente: string;
 
 filteredOptions: Observable<any>;
+filteredOptions1: Observable<any>;
   // name_validator = new FormControl('',  [Validators.required, Validators.email]);
   name_validators = new FormControl('', {
     validators: Validators.required,
@@ -75,13 +76,9 @@ filteredOptions: Observable<any>;
 
 
     constructor(private http: HttpClient, public dialog: MatDialog,
-      private cd: ChangeDetectorRef, private autoCompleteService: AutocompleteService) {
+      private cd: ChangeDetectorRef, public autoCompleteService: AutocompleteService) {
 
-
-
-
-        // autocomplete tipo_accesso
-        this.filteredOptions = this.tipo_accessoControl.valueChanges
+        this.filteredOptions1 = this.tipo_accessoControl.valueChanges
         .pipe(
           startWith(null),
           debounceTime(200),
@@ -91,8 +88,7 @@ filteredOptions: Observable<any>;
           })
         );
 
-
-  }
+      }
 
     openDialog() {
 
@@ -111,7 +107,11 @@ filteredOptions: Observable<any>;
     }
 
 ngAfterViewInit() {
-  this.cd.detectChanges();
+
+}
+
+ngAfterViewChecked() {
+
 }
 
     ngOnInit() {
@@ -123,17 +123,18 @@ ngAfterViewInit() {
         distinctUntilChanged(),
         switchMap(val => {
           return this.filterNome(val || '');
-        })
+        }),
       );
 
     }
 
 
 // filter nome_cliente
+
     filterNome(val: string): Observable<any[]> {
       return this.autoCompleteService.search_autocomplete()
       .pipe(
-        map(response => response.filter(res => {
+       map(response => response.filter(res => {
           return res.nome_cliente
           .toLowerCase().indexOf(val.toLowerCase()) === 0;
         })),
@@ -141,6 +142,8 @@ ngAfterViewInit() {
     }
 
 // filter tipo_accesso
+
+
 filterTipoAccess(val: string): Observable<any[]> {
   return this.autoCompleteService.search_autocompleteAccess(this.myControl.value)
   .pipe(
@@ -150,6 +153,9 @@ filterTipoAccess(val: string): Observable<any[]> {
     }))
   );
 }
+
+
+
 
 
     onSubmit(searchTerm: HTMLInputElement, searchTerm2: HTMLInputElement, searchTerm3: HTMLInputElement): void {

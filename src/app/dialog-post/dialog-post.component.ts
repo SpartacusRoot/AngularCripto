@@ -57,6 +57,13 @@ isDisabled: boolean;
 }
 
 
+sendData(searchTerm: HTMLInputElement) {
+  console.log(searchTerm);
+  this.http.post('api/decrypta', searchTerm);
+  this.router.navigate(['decripta'], { queryParams: {password: searchTerm}});
+  this.dialogRef.close();
+  }
+
 openSnackBar() {
   const ref = this.snackBar
   .open('Il criptogramma è stato successivamente copiato', 'x', { duration: 2000 });

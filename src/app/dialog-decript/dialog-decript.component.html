@@ -17,5 +17,5 @@
     😢 Oh no, il criptogramma inserito non esiste!
   </div>
 
-  <a mat-raised-button class="flex-children2" [disabled]="myForm.invalid" href="http://localhost:3000/decripta?password={{criptogramma}}"  color="primary">Decripta</a>
+  <a mat-raised-button class="flex-children2" (click)="sendData(searchTerm.value)"  [disabled]="myForm.invalid"   color="primary">Decripta</a>
 </form>

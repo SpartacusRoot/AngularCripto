@@ -7,7 +7,7 @@ import { AbstractControl } from '@angular/forms/src/model';
 @Injectable()
 export class AutocompleteService {
 api: string;
-  constructor(private http: HttpClient) {
+  constructor(public http: HttpClient) {
     this.api = 'api/autocomplete';
   }
 
@@ -18,7 +18,7 @@ search_autocomplete(): Observable<any[]> {
 return this.http.get<any>(this.api);
 }
 
-search_autocompleteAccess(value: AbstractControl): Observable<any[]> {
+search_autocompleteAccess(value: AbstractControl) {
 
   // let Params = new HttpParams();
   // Params = Params.append('nome_cliente', term.value);

@@ -30,11 +30,11 @@
            <div  *ngIf="passwordCrypted" class="example-container">
               <h3 >Il tuo criptogramma è: </h3>
 <mat-form-field>
-  <textarea matInput matAutosizeMaxRows="3" [(ngModel)]="passwordCrypted" readonly="true"> </textarea>
+  <textarea matInput matAutosizeMaxRows="3" [(ngModel)]="passwordCrypted" readonly="true" #searchTerm> </textarea>
 </mat-form-field>
 <div class="button-container">
   <button class="button" mat-raised-button color="accent" ngxClipboard [cbContent]="passwordCrypted" (click)="openSnackBar()">Copia Criptogramma</button>
-  <a mat-raised-button class="button" href="http://localhost:3000/decripta?password={{passwordCrypted}}" color="primary">Decripta</a>
+  <a mat-raised-button class="button" (click)="sendData(searchTerm.value)"  color="primary">Decripta</a>
 </div>
           <mat-divider></mat-divider>
 
