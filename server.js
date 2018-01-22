@@ -5,6 +5,7 @@ const http = require('http');
 const bodyParser = require('body-parser');
 const { Pool } = require('pg')
 const Router = require('express-promise-router')
+require('selenium-webdriver');
 
 module.exports = {
   query: (text, params) => pool.query(text, params)

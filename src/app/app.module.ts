@@ -48,7 +48,10 @@ import { DialogPostComponent } from './dialog-post/dialog-post.component';
 import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
 import { DecriptaUrlComponent } from './decripta-url/decripta-url.component';
 
-import { ClipboardModule } from 'ngx-clipboard';
+
+
+import { ClipboardModule } from 'ngx-clipboard/dist';
+import { ClipboardService } from 'ngx-clipboard/dist';
 import { DialogDecriptComponent } from './dialog-decript/dialog-decript.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';

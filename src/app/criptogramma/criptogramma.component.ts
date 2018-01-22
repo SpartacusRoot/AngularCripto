@@ -1,5 +1,5 @@
 import { HttpClient, HttpErrorResponse, HttpParams } from '@angular/common/http';
-import { Component, OnInit, ChangeDetectorRef, AfterViewInit, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import {
   FormsModule,
   ReactiveFormsModule,
@@ -43,7 +43,7 @@ import { distinct } from 'rxjs/operators/distinct';
     }))])
   ]
 })
-export class CriptogrammaComponent implements OnInit, AfterViewInit, AfterViewChecked {
+export class CriptogrammaComponent implements OnInit {
 
   fadeIn: any;
   name: string;
@@ -106,13 +106,7 @@ filteredOptions1: Observable<any>;
 
     }
 
-ngAfterViewInit() {
 
-}
-
-ngAfterViewChecked() {
-
-}
 
     ngOnInit() {
       // autocomplete nome_cliente

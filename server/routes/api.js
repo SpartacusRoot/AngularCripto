@@ -33,7 +33,7 @@ router.get('/autocomplete', (req,res) => {
 
 router.get('/autocompleteAccesso', (req,res) => {
   // test autocomplete with new database refer autocompleteTest
-  const autocompleteTest ='SELECT clienti.nome_cliente, usernames.username,tipo_accesso.tipo_accesso FROM clienti JOIN usernames ON clienti.id = usernames.id JOIN tipo_accesso ON usernames.id_username = tipo_accesso.id_username JOIN password ON tipo_accesso.id_tipo_accesso = password.id_tipo_accesso WHERE nome_cliente=($1)'
+  const autocompleteTest =' SELECT DISTINCT clienti.nome_cliente,tipo_accesso.tipo_accesso FROM clienti JOIN usernames ON clienti.id = usernames.id JOIN tipo_accesso ON usernames.id_username = tipo_accesso.id_username JOIN password ON tipo_accesso.id_tipo_accesso = password.id_tipo_accesso WHERE nome_cliente=($1)'
   var value = [req.query.nome_cliente]
   var client = new pg.Client(connectionString);
   client.connect(function(err) {
