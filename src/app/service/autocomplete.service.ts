@@ -11,17 +11,15 @@ api: string;
     this.api = 'api/autocomplete';
   }
 
+// autocomplete http nome_cliente
 search_autocomplete(): Observable<any[]> {
-
- // let Params = new HttpParams();
- // Params = Params.append('nome_cliente', term.value);
 return this.http.get<any>(this.api);
 }
-
-search_autocompleteAccess(value: AbstractControl) {
-
-  // let Params = new HttpParams();
-  // Params = Params.append('nome_cliente', term.value);
+// autocomplete http tipo_accesso
+search_autocompleteAccess(value: any) {
  return this.http.get<any>('api/autocompleteAccesso' + '?nome_cliente=' + value);
  }
+
 }
+
+

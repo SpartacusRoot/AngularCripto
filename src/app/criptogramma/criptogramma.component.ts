@@ -78,7 +78,7 @@ filteredOptions1: Observable<any>;
     constructor(private http: HttpClient, public dialog: MatDialog,
       private cd: ChangeDetectorRef, public autoCompleteService: AutocompleteService) {
 
-        this.filteredOptions1 = this.tipo_accessoControl.valueChanges
+        this.filteredOptions1 = this.myControl.valueChanges
         .pipe(
           startWith(null),
           debounceTime(200),

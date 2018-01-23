@@ -14,9 +14,8 @@ HMAC_KEY = crypto.randomBytes(32);
 
 
 router.get('/autocomplete', (req,res) => {
-  // test autocomplete with new database refer autocompleteTest
-
   const autocomplete = 'SELECT  DISTINCT nome_cliente from clienti; ';
+  // test autocomplete with new database refer autocompleteTest
   const autocompleteTest ='SELECT clienti.nome_cliente, usernames.username,tipo_accesso.tipo_accesso FROM clienti JOIN usernames ON clienti.id = usernames.id JOIN tipo_accesso ON usernames.id_username = tipo_accesso.id_username JOIN password ON tipo_accesso.id_tipo_accesso = password.id_tipo_accesso';
   var client = new pg.Client(connectionString);
   client.connect(function(err) {
@@ -68,7 +67,6 @@ router.get('/checkPassword', (req,res) => {
 /* GET api listing. */
 router.get('/check', (req, resp) => {
   const checkName = 'SELECT clienti.nome_cliente, usernames.username,tipo_accesso.tipo_accesso FROM clienti JOIN  usernames ON clienti.id = usernames.id JOIN tipo_accesso ON usernames.id_username = tipo_accesso.id_username JOIN password ON tipo_accesso.id_tipo_accesso = password.id_tipo_accesso WHERE nome_cliente=($1) AND username= ($2) AND tipo_accesso=($3)';
- // const checkName = 'SELECT nome_cliente, username, tipo_accesso FROM users WHERE nome_cliente=($1) AND username= ($2) AND tipo_accesso=($3)'
   const checkValue = [req.query.nome_cliente, req.query.username, req.query.tipo_accesso];
   var client = new pg.Client(connectionString);
   client.connect(function(err) {
