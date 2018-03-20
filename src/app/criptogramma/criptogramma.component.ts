@@ -30,7 +30,7 @@ import { map, startWith, filter, switchMap, debounceTime } from 'rxjs/operators'
 import { AutocompleteService } from '../service/autocomplete.service';
 import { distinctUntilChanged } from 'rxjs/operators/distinctUntilChanged';
 import { ItemsResponse } from '../home/itemResponse';
-import { distinct } from 'rxjs/operators/distinct';
+
 
 
 @Component({

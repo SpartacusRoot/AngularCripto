@@ -68,4 +68,10 @@ export class DecryptComponent implements OnInit {
 
   }
 
+  returnToTable() {
+    this.router.navigate(['ricerca'], {queryParams: { nome_cliente: this.nome_cliente, tipo_accesso: this.tipo_accesso
+      , password: this.password }});
+  }
+
+
 }

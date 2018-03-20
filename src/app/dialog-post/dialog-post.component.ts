@@ -23,7 +23,7 @@ password: string;
 access: string;
 note: string;
 resGet: any;
-isClickedOnce= false;
+isClickedOnce = false;
 isDisabled: boolean;
 
   constructor(public dialogRef: MatDialogRef<DialogPostComponent>,

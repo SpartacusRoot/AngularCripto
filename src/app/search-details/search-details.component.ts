@@ -48,7 +48,7 @@ import { fadeIn } from 'ng-animate';
 })
 export class SearchDetailsComponent implements OnInit {
   fadeIn: any;
-  hide= true;
+  hide = true;
   id: number;
   id_username: number;
   id_tipo_accesso: number;
@@ -69,6 +69,12 @@ export class SearchDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private router: Router, private http: HttpClient, public dialog: MatDialog) { }
+
+
+    returnToTable() {
+      this.router.navigate(['ricerca'], {queryParams: { nome_cliente: this.nome_cliente, tipo_accesso: this.tipo_accesso
+        , password: this.password }});
+    }
 
 
     openDialog() {
@@ -95,6 +101,7 @@ export class SearchDetailsComponent implements OnInit {
 
 
   ngOnInit() {
+    console.log('parametri', this.nome_cliente);
 this.sub = this.route.queryParams.subscribe(params => {
   this.id = +params['id']; // (+) converts string 'id' to a number
   this.id_username = +params['id_username'];
@@ -107,4 +114,5 @@ this.sub = this.route.queryParams.subscribe(params => {
   this.note = params['note'];
 });
   }
+
 }

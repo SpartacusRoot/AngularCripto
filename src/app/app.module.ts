@@ -30,11 +30,12 @@ import {MatButtonModule} from '@angular/material';
 import {MatDialogModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material';
 import {MatCardModule} from '@angular/material';
-import {MatTableModule} from '@angular/material';
+import {MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/material';
 import {MatListModule} from '@angular/material';
 import { MatSnackBarModule } from '@angular/material';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
+
 // component
 import { TableBasicExampleComponent } from './table-basic-example/table-basic-example.component';
 import { DecryptComponent } from './decrypt/decrypt.component';
@@ -43,6 +44,7 @@ import { DecryptComponent } from './decrypt/decrypt.component';
 
 // hash url
 import { LocationStrategy } from '@angular/common';
+
 import { SearchDetailsComponent } from './search-details/search-details.component';
 import { DialogPostComponent } from './dialog-post/dialog-post.component';
 import { DialogUpdateComponent } from './dialog-update/dialog-update.component';
@@ -62,8 +64,8 @@ import { AuthService } from './login/auth.service';
 import { AuthguardService } from './authguard.service';
 import { AutocompleteService } from './service/autocomplete.service';
 
-
-
+import {FlexLayoutModule} from '@angular/flex-layout';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 
 const routes: Routes = [
@@ -123,9 +125,12 @@ const routes: Routes = [
     MatProgressSpinnerModule,
     MatAutocompleteModule,
     ClipboardModule,
+    FlexLayoutModule,
+    MatPaginatorModule,
+    MatSortModule,
 // firebase Auth
 AngularFireModule.initializeApp(environment.firebase),
-AngularFireAuthModule
+AngularFireAuthModule,
 
 
   ],
