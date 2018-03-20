@@ -41,7 +41,9 @@
     "pg-promise": "^6.10.1",
     "rxjs": "^5.5.6",
     "web-animations-js": "^2.3.1",
-    "zone.js": "^0.8.18"
+    "zone.js": "^0.8.18",
+    "@angular/cli": "1.6.4",
+    "@angular/compiler-cli": "5.2.0"
   },
   "devDependencies": {
     "@angular/cli": "1.6.4",
