@@ -4,6 +4,7 @@ var Buffer = require("buffer").Buffer;
 var pg = require("pg");
 const { Pool, Client } = require("pg");
 const connectionString = process.env.DATABASE_URL;
+// la costante database_url è fornita nella configurazione di heroku
   // "postgresql://postgres:FAntasydj87@localhost:5432/users";
 var algorithm, key, HMAC_ALGORITHM, HMAC_KEY;
 const crypto = require("crypto");
