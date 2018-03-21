@@ -24,6 +24,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Point static path to dist
 app.use(express.static(path.join(__dirname, 'dist')));
 
+//test
+
+
 // Set our api routes
 app.use('/api', api);
 
@@ -39,8 +42,11 @@ app.get('*', (req, res) => {
 /**
  * Get port from environment and store in Express.
  */
-const port = process.env.PORT || '3000';
-app.set('port', port);
+// const port = process.env.PORT || '3000';
+// app.set('port', port);
+const PORT = process.env.PORT || 5000;
+app.set('port', PORT);
+
 
 /**
  * Create HTTP server.
@@ -50,4 +56,4 @@ const server = http.createServer(app);
 /**
  * Listen on provided port, on all network interfaces.
  */
-server.listen(port, () => console.log(`API running on localhost:${port}`));
+server.listen(PORT, () => console.log(`API running on localhost:${PORT}`));
