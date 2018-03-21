@@ -3,8 +3,8 @@ const router = express.Router();
 var Buffer = require("buffer").Buffer;
 var pg = require("pg");
 const { Pool, Client } = require("pg");
-const connectionString =
-  "postgresql://postgres:FAntasydj87@localhost:5432/users";
+const connectionString = process.env.DATABASE_URL;
+  // "postgresql://postgres:FAntasydj87@localhost:5432/users";
 var algorithm, key, HMAC_ALGORITHM, HMAC_KEY;
 const crypto = require("crypto");
 algorithm = "aes-256-cbc";
